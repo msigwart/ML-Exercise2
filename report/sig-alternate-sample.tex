@@ -179,11 +179,11 @@ TODO\\
 
 \subsubsection{Algorithm 1: K-Nearest Neighbors}
 TODO\\
-\subsubsection{Algorithm 2: Random Forrest}
+\subsubsection{Random Forest: Random Forrest}
 TODO\\
-\subsubsection{Algorithm 3: Decision Tree}
+\subsubsection{Decision Tree - 48J: Decision Tree}
 TODO\\
-\subsubsection{Algorithm 4: Bayes??}
+\subsubsection{Bayes Network: Bayes??}
 TODO\\
 
 
@@ -197,21 +197,74 @@ As for performance criteria with this data set only the percentage of correctly 
 As the data set was only provided as CSV file without header row, we added a header row for displaying the attribute names in Weka and therefore facilitating the analysis of the results. 
 \\
 \subsection{K-Nearest Neighbors}
-In order to be able to compare the results we always used the same number of neighbors: 1,2,3,4,5,6,8,10,16,20,40,100.
+In order to be able to compare the results we always used the same number of neighbors: 1,2,3,4,5,6,8,10,16,20,40,100.\\
+The algorithm is generally very fast, even with 100 neighbors, it is usually finished within 30 seconds. 
 \subsubsection{Default implementation}
-At first we started out using the default KNN implementation of Weka with default settings. We started out with increasing the amount of neighbors starting at one. Though with this settings we got the best results using just the nearest neighbor. \\\\
+At first we started out using the default KNN implementation of Weka with default settings. The defaults are a \emph{LinearNN} search algorithm with the \emph{Eucledian distance} as distance function. We started out with increasing the amount of neighbors starting at one. Though with this settings we got the best results using just the nearest neighbor. 
+\\\\
 \begin{tabular}{ l | c |c }
-K & \% Correct & \% Wrong \\
+\textbf{K} & \textbf{\% Correct} & \textbf{\% Wrong} \\
 1 & 95.96 & 4.04 \\
 2 & 94.925 & 5.075 \\
 3 & 95.635 & 4.365 \\
 \end{tabular}
-\\
-\subsection{Algorithm 2}
+\paragraph{}In order to improve the results we started with weighting the neighbors after their distance which helped us further improving the results. The best results where achieved by weighting the neighbors \emph{1/distance}. While the results yielded by the weighting function \emph{1-distance} where also better than without weighting, the were not as good.
+\\\\
+\begin{tabular}{ l | c | c }
+\textbf{K} & \textbf{\% Correct} & \textbf{\% Wrong} \\
+1 & 95.96 & 4.04 \\
+2 & 95.99& 4.01\\
+3 & 96.04 & 3.96 \\
+\textbf{4} & \textbf{96.115} & \textbf{3.885} \\
+5 & 96.03 & 3.97 \\
+6 & 96.015 & 3.985 \\
+8 & 95.75 & 4.25 \\
+\end{tabular}
+\paragraph{}With high values for K the prediction rates get worse. 
+\\\\
+\begin{tabular}{ l | c | c }
+\textbf{K} & \textbf{\% Correct} & \textbf{\% Wrong} \\
+40 & 90.915 & 9.085 \\
+100 &  84.3 & 15.7 \\
+\end{tabular}
+\subsubsection{Manhattan Distance} did not improve our prediction, although again when the neighbors were weighted by their distance the success rate improved.
+\subsubsection{Chebyshev Distance} also did not improve the result, as it only takes the distance between the attributes which are farthest away from each other as result. As for weighting again, the results improved slightly when using weighted neighbors.
+\subsubsection{KD Tree Search Method} improves the run time of the classification significantly. The time for evaluating the models with 10-folds cross validation decreased by 66\%. 
+
+\subsection{Random Forest}
+The default settings for Random Forests are 100 Trees with unlimited depth, the number of randomly chosen features per tree is calculated by \textit{log\_2(\#predictors) + 1}.
+\paragraph{Number of Trees} We started out with the default settings and varying the number of trees, starting at 100 trees. The result yielded was already at 96.41\% accuracy. Further increasing the number of trees improved the result continuously, but also increased the computation time. 
+\\\\
+\begin{tabular}{ c | c | c }
+\textbf{\# Trees} & \textbf{\% Accuracy} & \textbf{Computation time (s)} \\
+50 & 96.10\% & 3.1s \\
+100 & 96.41\% & 6.55s \\
+200 & 96.53\% & 12.33s \\
+300 & 96.51\% & 19.13s \\
+400 & 96.54\% & 24.46s \\
+500 & 96.58\% & 30.66s\\
+\end{tabular}
+
+\paragraph{}Though the performance is improving with the number of trees, the improvements are getting smaller. While an increase of trees from 50 to 100 trees results in a gain of 0.3 percent, the increase from 400 to 500 trees only gains 0.04 percent accuracy. 
+\subsubsection{Increasing Execution Slots}For computing a 10-fold cross-validation at 500 trees on one single thread, the taken time was 5:55min. In order to improve this, the number of execution slots (=threads) can be increased. When repeating the same operation with 10 slots our computation time improved to 1:56min. \\
+Using 50 threads we calculated a model with 1000 trees, which yielded the best result so far with an accuracy of \emph{96.63\%}. 
+\subsubsection{Modifying number of features per tree}
+Through varying the number of features which will be selected per tree, we tried to increase the accuracy. \\
+Results for \emph{\#Features: 3}:\\
+\begin{tabular}{ c | c | c }
+\textbf{\# Trees} & \textbf{\% Accuracy} \\
+100 & 96.51\% \\
+200 & 96.66\% \\
+300 & 96.78\% \\
+400 & 96.75\% \\
+\end{tabular}
+
+\subsubsection{Modifying tree depth}
+
+
+\subsection{Decision Tree - 48J}
 TODO\\
-\subsection{Algorithm 3}
-TODO\\
-\subsection{Algorithm 4}
+\subsection{Bayes Network}
 TODO\\
 \subsection{Conclusion}
 TODO\\
@@ -224,11 +277,11 @@ TODO\\
 TODO what preprocessing was done\\
 \subsection{K-Nearest Neighbours}
 TODO\\
-\subsection{Algorithm 2}
+\subsection{Random Forest}
 TODO\\
-\subsection{Algorithm 3}
+\subsection{Decision Tree - 48J}
 TODO\\
-\subsection{Algorithm 4}
+\subsection{Bayes Network}
 TODO\\
 \subsection{Conclusion}
 TODO\\
@@ -241,11 +294,11 @@ TODO\\
 TODO what preprocessing was done\\
 \subsubsection{K-Nearest Neighbours}
 TODO\\
-\subsubsection{Algorithm 2}
+\subsubsection{Random Forest}
 TODO\\
-\subsubsection{Algorithm 3}
+\subsubsection{Decision Tree - 48J}
 TODO\\
-\subsubsection{Algorithm 4}
+\subsubsection{Bayes Network}
 TODO\\
 \subsubsection{Conclusion}
 TODO\\
@@ -258,11 +311,11 @@ TODO\\
 TODO what preprocessing was done\\
 \subsubsection{K-Nearest Neighbours}
 TODO\\
-\subsubsection{Algorithm 2}
+\subsubsection{Random Forest}
 TODO\\
-\subsubsection{Algorithm 3}
+\subsubsection{Decision Tree - 48J}
 TODO\\
-\subsubsection{Algorithm 4}
+\subsubsection{Bayes Network}
 TODO\\
 \subsubsection{Conclusion}
 TODO\\
