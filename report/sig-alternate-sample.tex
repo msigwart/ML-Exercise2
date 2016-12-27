@@ -169,47 +169,60 @@ TODO\\
 \subsection{4 classification algorithms}
 TODO\\
 
-\subsubsection{Data Set 1: Letter Recognition}
+\subsubsection{Algorithm 1: K-Nearest Neighbours}
 TODO\\
-\subsubsection{Data Set 2: Internet Advertisements}
+\subsubsection{Algorithm 2: }
 TODO\\
-\subsubsection{Data Set 3: Leukemia}
+\subsubsection{Algorithm 3: }
 TODO\\
-\subsubsection{Data Set 4: Congressional Voting}
+\subsubsection{Algorithm 4:}
 TODO\\
 
 
 % Section Data Set 1
 \section{Data Set 1: Letter Recognition}
+The objective for this data set is to predict a letter shown on a rectangular, black and white, display. There are 16 numerical features  provided for determining the correct letter. These attributes provide information about statistical properties of the letter like total number of pixels, width, mean of x-axis pixels, etc.
+All of these values were then scaled into a range from 0 through 15. The 26 capital letters to predict in this set were taken from 20 different fonts. The letters are more or less evenly spread over the 20.000 instances, within a range of 734 to 813 occurrences. This data set contains no missing values. For comparable results 10-fold cross validation was used to measure the algorithms precision.
+As for performance criteria with this data set only the percentage of correctly classified instances will be considered. The reason for this being that if a letter is wrongly classified, it doesn't matter which other letter was recognized instead of the correct one. 
+\\
+\subsection{Preprocessing}
+As the data set was only provided as CSV file without header row, we added a header row for displaying the attribute names in Weka and therefore facilitating the analysis of the results. 
+\\
+\subsection{K-Nearest Neighbors}
+In order to be able to compare the results we always used the same number of neighbors: 1,2,3,4,5,6,8,10,16,20,40,100.
+\subsubsection{Default implementation}
+At first we started out using the default KNN implementation of Weka with default settings. We started out with increasing the amount of neighbors starting at one. Though with this settings we got the best results using just the nearest neighbor. \\\\
+\begin{tabular}{ l | c |c }
+K & \% Correct & \% Wrong \\
+1 & 95.96 & 4.04 \\
+2 & 94.925 & 5.075 \\
+3 & 95.635 & 4.365 \\
+\end{tabular}
+\\
+\subsection{Algorithm 2}
 TODO\\
-\subsubsection{Preprocessing}
-TODO what preprocessing was done\\
-\subsubsection{Algorithm 1}
+\subsection{Algorithm 3}
 TODO\\
-\subsubsection{Algorithm 2}
+\subsection{Algorithm 4}
 TODO\\
-\subsubsection{Algorithm 3}
-TODO\\
-\subsubsection{Algorithm 4}
-TODO\\
-\subsubsection{Conclusion}
+\subsection{Conclusion}
 TODO\\
 
 
 % Section Data Set 2
 \section{Data Set 2: Internet Advertisements}
 TODO\\
-\subsubsection{Preprocessing}
+\subsection{Preprocessing}
 TODO what preprocessing was done\\
-\subsubsection{Algorithm 1}
+\subsection{K-Nearest Neighbours}
 TODO\\
-\subsubsection{Algorithm 2}
+\subsection{Algorithm 2}
 TODO\\
-\subsubsection{Algorithm 3}
+\subsection{Algorithm 3}
 TODO\\
-\subsubsection{Algorithm 4}
+\subsection{Algorithm 4}
 TODO\\
-\subsubsection{Conclusion}
+\subsection{Conclusion}
 TODO\\
 
 
@@ -218,7 +231,7 @@ TODO\\
 TODO\\
 \subsubsection{Preprocessing}
 TODO what preprocessing was done\\
-\subsubsection{Algorithm 1}
+\subsubsection{K-Nearest Neighbours}
 TODO\\
 \subsubsection{Algorithm 2}
 TODO\\
@@ -235,7 +248,7 @@ TODO\\
 TODO\\
 \subsubsection{Preprocessing}
 TODO what preprocessing was done\\
-\subsubsection{Algorithm 1}
+\subsubsection{K-Nearest Neighbours}
 TODO\\
 \subsubsection{Algorithm 2}
 TODO\\
