@@ -272,9 +272,14 @@ TODO\\
 
 % Section Data Set 2
 \section{Data Set 2: Internet Advertisements}
-TODO\\
+This data set contains information on different banners/images on websites. The classification task on hand is to determine whether or not an instance is an advertisement or not. A possible use case for this data set would be to remove all adverts from a given website. Some attributes include the geometry of the images (if available), as well as phrases occurring in the URL, the image's URL and alt text, the anchor text and words near the anchor text.
+
+The data set contains a total of 3279 instances, 2821 of which are non-advertisements, 458 are advertisements. Further the data set contains a total of 1558 attributes, 3 of which are continuous variables, the other ones all binary. 28\% of instances are missing one or more of the continuous variables.
+
+
 \subsection{Preprocessing}
-TODO what preprocessing was done\\
+The data set, was contained in two files, one with file ending .name containing all the names of attributes, the other one with ending .data containing the data in a comma-separated format. As Weka prefers data in the ARFF format, we had to do some transformations on the data set prior to loading it into Weka. This was done by first adding the attribute names as header row into the .data file, and saving that file as a CSV file. This file could then be converted by Weka's CSV converter to get the desired ARFF format.
+
 \subsection{K-Nearest Neighbours}
 TODO\\
 \subsection{Random Forest}
