@@ -158,24 +158,29 @@ We chose four different data sets for the task. We chose data sets which varied 
 The four data sets we chose are:
 
 \begin{itemize}
-\item Letter Recognition
-\item Internet Advertisements
-\item Leukemia
-\item Congressional Voting
+\item \textbf{Letter Recognition}
+This data set contained attributes about letters shown on a rectangular, black and white display. The classification task is to determine the right letter (A-Z)
+\item \textbf{Internet Advertisements}
+This data set contained information about images of different web pages. The classification task is to determine whether or not an image is an advertisement.
+\item \textbf{Leukemia}
+This data set contained medical information of cancer patients. The classification task is to determine whether or not a certain patients has cancer.
+\item \textbf{Congressional Voting}
+This data set contains information on different voters. The classification task is to determine the party affiliation of the voters.
 \end{itemize}
 
-\subsubsection{Data Set 1: Letter Recognition}
-TODO\\
-\subsubsection{Data Set 2: Internet Advertisements}
-TODO\\
-\subsubsection{Data Set 3: Leukemia}
-TODO\\
-\subsubsection{Data Set 4: Congressional Voting}
-TODO\\
+Each data set will be described in more detail in sections below.
 
 
 \subsection{4 classification algorithms}
-TODO\\
+We chose 4 different classifiers for the task. Hereby, it was important that at least 3 of the classifiers derived from totally different learning algorithms. The classifiers we chose are:
+
+\begin{itemize}
+\item \textbf{K-Nearest Neighbors}
+\item \textbf{Random Forrest}
+\item \textbf{Decision Tree}
+\item \textbf{Bayes Network}
+\end{itemize}
+
 
 \subsubsection{Algorithm 1: K-Nearest Neighbors}
 TODO\\
@@ -186,6 +191,8 @@ TODO\\
 \subsubsection{Bayes Network: Bayes??}
 TODO\\
 
+\subsection{Performance Measures}
+TODO\\
 
 % Section Data Set 1
 \section{Data Set 1: Letter Recognition}
@@ -281,6 +288,17 @@ The data set contains a total of 3279 instances, 2821 of which are non-advertise
 The data set, was contained in two files, one with file ending .name containing all the names of attributes, the other one with ending .data containing the data in a comma-separated format. As Weka prefers data in the ARFF format, we had to do some transformations on the data set prior to loading it into Weka. This was done by first adding the attribute names as header row into the .data file, and saving that file as a CSV file. This file could then be converted by Weka's CSV converter to get the desired ARFF format.
 
 \subsection{K-Nearest Neighbours}
+As first classification algorithm we used K-Nearest Neighbors. The parameters we experimented with were:
+
+\begin{itemize}
+\item The number of neighbors.
+\item The distance weighting.
+\item The search algorithm.
+\item The distance function.
+\end{itemize}
+
+\textbf{Number of Neighbors:}
+First, we experimented with the number of neighbors used by the classification algorithm. 
 TODO\\
 \subsection{Random Forest}
 TODO\\
