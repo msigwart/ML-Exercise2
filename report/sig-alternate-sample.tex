@@ -183,6 +183,18 @@ We chose 4 different classifiers for the task. Hereby, it was important that at 
 
 
 \subsubsection{Algorithm 1: K-Nearest Neighbors}
+KNN itself doesn't deal with missing values, it's the distance 
+function. E.g., in case of euclidean distance, the following applies 
+to missing values while computing the distance of the same attribute 
+between two weka.core.Instance objects: 
+- attributes in both Instance objects have missing value 
+  => 0 
+- only one value is missing 
+  ~ nominal attribute 
+    => 1 
+  ~ numeric attribute 
+    => 1 in case of normalization, maxRange-minRange for that 
+attribute otherwise 
 TODO\\
 \subsubsection{Random Forest: Random Forrest}
 TODO\\
@@ -297,9 +309,55 @@ As first classification algorithm we used K-Nearest Neighbors. The parameters we
 \item The distance function.
 \end{itemize}
 
+We did not use any missing value replacement strategy for this classifier, as the distance function used by K-NN can handle missing values. 
+
 \textbf{Number of Neighbors:}
-First, we experimented with the number of neighbors used by the classification algorithm. 
-TODO\\
+First, we experimented with the number of neighbors used by the classification algorithm. We did experiments with 1,2,3,4,5,6,8,10,20,50 and 100 neighbors.
+
+\begin{tabular}{ c | c | c | c | c | c}
+\textbf{\# of Neighbors} & \textbf{\% Correctly Classified} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad} & \textbf{F-Measure} & \textbf{ROC Area}\\
+1   & 96.25\% & 0.854 & 0.98  & 0.966 & 0.943\\
+2   & 95.58\% & 0.871 & 0.97  & 0.956 & 0.953\\
+3   & 96.74\% & 0.804 & 0.994 & 0.966 & 0.957\\
+4   & 96.68\% & 0.819 & 0.991 & 0.966 & 0.959\\
+5   & 96.00\% & 0.747 & 0.995 & 0.958 & 0.965\\
+6   & 96.00\% & 0.763 & 0.994 & 0.96  & 0.965\\
+8   & 95.64\% & 0.710 & 0.996 & 0.953 & 0.967\\
+10  & 95.27\% & 0.678 & 0.998 & 0.949 & 0.966\\
+20  & 92.71\% & 0.486 & 0.999 & 0.916 & 0.967\\
+50  & 88.9 \% & 0.211 & 0.999 & 0.857 & 0.957\\
+100 & 88.2 \% & 0.161 & 0.999 & 0.843 & 0.959\\
+\end{tabular}
+
+Generally, we can observe that the classification task using K-NN rightly classifies the major part of instances. Depending on the number of neighbors up to almost 97\% of instances is classified correctly. The best results seem to emerge when the number of neighbors is fairly low, starting from 1 neighbor we see a slight increase in rightly classified instances up until 3 neighbors. After that the percentage of rightly classified instances starts to decrease again. Looking at the F-Measure our assumption that we find the best classification results by using around 3-4 neighbors is further strengthened as we see F-Measure values of 0.966 for each case. The ROC curve however tells a slightly different story. Here we can we the highest values for 8-20 neighbors, but the overall the values lie in a range between 0.943 and 0.967 and are therefore quite small.
+
+Another interesting observation is that the true positive rates for class Ad seem to decrease with an increasing number of neighbors where as the true positive rate for class Non-ad seems to increase up to 0.999 meaning that almost all "Non-ad" instances are classified correctly. We assume this is because our "ad" instances do not lie all closely together in the data space with respect to their attributes, but rather scattered around the space in smaller groups. Our assumption is that only a few images of class "ad" have very similar attributes, and therefore returning great true-positive rates for a small number of neighbors, whereas with more neighbors, the classifier has to deal with more images that are also quite similar to the given image but of different classes. As we have way more instances of class "non-ad" this comes down to a "majority decision" leaving little to no chance to the classifier but to classify the given instance as "non-ad", therefore explaining the drastic decrease in the true-positive rate for class "ad" and the increase of the same for class "non-ad".
+
+For 2 - 4 neighbors we generally got very good classification results, which is why we think the "ideal" number of neighbors for k-NN lies in that region. However, you cannot choose the ideal number of neighbors without defining a clear idea of what you want to achieve. This may be different depending on the context. For example, looking at the general performance (F-Measure, ROC-Curve) we may conclude that 2-4 neighbors is ideal for the given data set. However, in the context of "ad" and "non-ad" images on web pages, one might want to achieve a high number of identified ads while keeping the number of non-ad images falsely classified  as advertisements to a minimum as these might show important information to the user. In this case it might be better to set the number of neighbors to 10 or 20 as this will yield very high true positive rates for class "non-ad" and fairly good true positive rates for class "ad". 
+
+\textbf{Distance Weighting:}
+Next, we experimented with different distance weighting settings. In Weka one can choose between no distance weighting, 1/distance weighting, and 1-distance weighting. Like we discussed in the section before, 2-4 neighbors generally showed "the best" results in the classification, which is why we did the following experiments all using 2-4 neighbors as well as 10 and 100 neighbors just for comparison. Below are the results of the classification task:
+
+\begin{tabular}{c | c | c | c | c | c | c}
+\textbf{Distance Weighting} & \textbf{\# of Neighbors} & \textbf{\% Correctly Classified} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad} & \textbf{F-Measure} & \textbf{ROC Area}\\
+No distance & 2   & 95.58\% & 0.871 & 0.97  & 0.956 & 0.953\\
+1/distance  & 2   & 96.43\% & 0.854 & 0.982 & 0.964 & 0.964\\
+1-distance  & 2   & 96.46\% & 0.856 & 0.982 & 0.964 & 0.963\\
+No distance & 3   & 96.74\% & 0.804 & 0.994 & 0.966 & 0.957\\
+1/distance  & 3   & 96.74\% & 0.808 & 0.993 & 0.966 & 0.967\\
+1-distance  & 3   & 96.71\% & 0.800 & 0.994 & 0.966 & 0.964\\
+No distance & 4   & 96.68\% & 0.819 & 0.991 & 0.966 & 0.959\\
+1/distance  & 4   & 96.71\% & 0.804 & 0.994 & 0.966 & 0.97\\
+1-distance  & 4   & 96.71\% & 0.800 & 0.994 & 0.966 & 0.966\\
+No distance & 10  & 95.27\% & 0.678 & 0.998 & 0.949 & 0.966\\
+1/distance  & 10  & 95.73\% & 0.712 & 0.997 & 0.954 & 0.973\\
+1-distance  & 10  & 95.18\% & 0.671 & 0.998 & 0.948 & 0.97\\
+No distance & 100 & 88.2 \% & 0.161 & 0.999 & 0.843 & 0.959\\
+1/distance  & 100 & 90.18\% & 0.305 & 0.999 & 0.879 & 0.972\\
+1-distance  & 100 & 88.2 \% & 0.161 & 0.999 & 0.843 & 0.963\\
+
+TODO: Observation & Conclusion
+
 \subsection{Random Forest}
 TODO\\
 \subsection{Decision Tree - 48J}
