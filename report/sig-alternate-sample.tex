@@ -356,7 +356,12 @@ No distance & 100 & 88.2 \% & 0.161 & 0.999 & 0.843 & 0.959\\
 1/distance  & 100 & 90.18\% & 0.305 & 0.999 & 0.879 & 0.972\\
 1-distance  & 100 & 88.2 \% & 0.161 & 0.999 & 0.843 & 0.963\\
 
-TODO: Observation & Conclusion
+For just 2 neighbors we can see a slight increase in correctly classified instances, also the F-Measure and ROC Area seem to hint at an improved classifier. However, for 3 and 4 neighbors all classifiers seem to show very similar results, so if the distance weighting has an impact, it is now so low that it is basically negligible. We observe the same picture while looking at the results for 10 or 100 neighbors. In general, the F-Measure and ROC Area show very similar results. Only the inverse distance weighting seems to slightly improve the classification on all experiments, which might indicate a more robust method for classification. 
+
+So even though the overall performance of the classifier does not seem to be affected that much by the distance weighting we can, however, make out a factor where it does have an impact. In the section above we looked at different numbers of neighbors and we noticed that the true-positive rate for class "ad" seems to decrease when we increase the number of neighbors. We explained this by only a few very similar instances of the class "ad" lying closely together in the data space while there are still quite a few similar instances but of class "non-ad" also in the neighborhood, which leads to some kind of majority count while classifying. The same behavior can also be observed when using distance weighting, though, the decrease of the true-positive rate is not as strong as for no distance weighting. We think this confirms our assumption that the immediate neighbors of an instance of class "ad" are also of class "ad". When using distance weighting within the classifier these instances now get assigned a bigger weight which enhances the probability that the given instance will also be classified as "ad". This reduces the effect of the majority count we observed when not using any distance weighting.
+
+In conclusion, we can say while the distance weighting does not seem to have any strong impact on the general performance, one might still make use of it when the classes are not fairly balanced. E.g. using inverse distance weighting on the classifier might reduce the effect of the majority count when using more neighbors.
+
 
 \subsection{Random Forest}
 TODO\\
