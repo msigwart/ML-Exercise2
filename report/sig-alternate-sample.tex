@@ -45,8 +45,9 @@
 %
 % For tracking purposes - this is V2.0 - May 2012
 
-\documentclass{sig-alternate-05-2015}
-
+%\documentclass{sig-alternate-05-2015}
+\documentclass{article}
+\usepackage{caption}
 
 \begin{document}
 
@@ -78,8 +79,8 @@
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
 
-\title{ML Exercise 2 - Group 19}
-\subtitle{Classification Tasks}
+\title{Classification Tasks}
+%\subtitle{Classification Tasks}
 %
 % You need the command \numberofauthors to handle the 'placement
 % and alignment' of the authors beneath the title.
@@ -105,11 +106,11 @@
 % without further effort on your part as the last section in
 % the body of your article BEFORE References or any Appendices.
 
-\numberofauthors{3} %  in this sample file, there are a *total*
+%\numberofauthors{3} %  in this sample file, there are a *total*
 % of EIGHT authors. SIX appear on the 'first-page' (for formatting
 % reasons) and the remaining two appear in the \additionalauthors section.
 %
-\author{
+\author{ML Exercise 2 - Group 19}
 % You can go ahead and credit any number of authors here,
 % e.g. one 'row of three' or two rows (consisting of one row of three
 % and a second row of one, two or three).
@@ -121,33 +122,39 @@
 % e-mail address with \email.
 %
 % 1st. author
-\alignauthor
-Lukas Stanek \\
-       \affaddr{Technical University of Vienna}\\
-       \affaddr{Karlsplatz 13}\\
-       \affaddr{1040, Vienna}\\
-       \email{----}
-% 2nd. author
-Thomas Appler \\
-       \affaddr{Technical University of Vienna}\\
-       \affaddr{Karlsplatz 13}\\
-       \affaddr{1040, Vienna}\\
-       \email{----}
-% 3rd. author
-\alignauthor
-Marten Sigwart \\
-       \affaddr{Technical University of Vienna}\\
-       \affaddr{Karlsplatz 13}\\
-       \affaddr{1040, Vienna}\\
-       \email{e1638152@student.tuwien.ac.at}
-}
+%\alignauthor
+%Lukas Stanek \\
+%       \affaddr{Technical University of Vienna}\\
+%       \affaddr{Karlsplatz 13}\\
+%       \affaddr{1040, Vienna}\\
+%       \email{----}
+%% 2nd. author
+%Thomas Appler \\
+%       \affaddr{Technical University of Vienna}\\
+%       \affaddr{Karlsplatz 13}\\
+%       \affaddr{1040, Vienna}\\
+%       \email{----}
+%% 3rd. author
+%\alignauthor
+%Marten Sigwart \\
+%       \affaddr{Technical University of Vienna}\\
+%       \affaddr{Karlsplatz 13}\\
+%       \affaddr{1040, Vienna}\\
+%       \email{e1638152@student.tuwien.ac.at}
+%}
 % There's nothing stop
 % Just remember to make sure that the TOTAL number of authors
 % is the number that will appear on the first page PLUS the
 % number that will appear in the \additionalauthors section.
 
 \maketitle
-
+\begin{center}
+\begin{tabular}{l| c r}
+Group: & Lukas Stanek & 1027203 \\ % Partner names
+& Thomas Appler \\
+& Marten Sigwart & 1638152 \\
+\end{tabular}
+\end{center}
 
 \section{Introduction}
 Our task was to apply 4 different classification algorithms to 4 different data sets. Hereby, we had to experiment with different parameter settings of the classification algorithm, evaluate the performance by choosing appropriate performance measures and compare results among classifiers and data sets. We also had to perform some pre-processing steps on the data prior to applying the classifiers and study the impact of those pre-processing methods.
@@ -254,6 +261,7 @@ At first we started out using the default KNN implementation of Weka with defaul
 The default settings for Random Forests are 100 Trees with unlimited depth, the number of randomly chosen features per tree is calculated by \textit{log\_2(\#predictors) + 1}.
 \paragraph{Number of Trees} We started out with the default settings and varying the number of trees, starting at 100 trees. The result yielded was already at 96.41\% accuracy. Further increasing the number of trees improved the result continuously, but also increased the computation time. 
 \\\\
+\begin{center}
 \begin{tabular}{ c | c | c }
 \textbf{\# Trees} & \textbf{\% Accuracy} & \textbf{Computation time (s)} \\
 50 & 96.10\% & 3.1s \\
@@ -263,6 +271,8 @@ The default settings for Random Forests are 100 Trees with unlimited depth, the 
 400 & 96.54\% & 24.46s \\
 500 & 96.58\% & 30.66s\\
 \end{tabular}
+\captionof{table}{Results for default settings and different \# of trees}
+\end{center}
 
 \paragraph{}Though the performance is improving with the number of trees, the improvements are getting smaller. While an increase of trees from 50 to 100 trees results in a gain of 0.3 percent, the increase from 400 to 500 trees only gains 0.04 percent accuracy. 
 \subsubsection{Increasing Execution Slots}For computing a 10-fold cross-validation at 500 trees on one single thread, the taken time was 5:55min. In order to improve this, the number of execution slots (=threads) can be increased. When repeating the same operation with 10 slots our computation time improved to 1:56min. \\
@@ -270,23 +280,67 @@ Using 50 threads we calculated a model with 1000 trees, which yielded the best r
 \subsubsection{Modifying number of features per tree}
 Through varying the number of features which will be selected per tree, we tried to increase the accuracy. \\
 Results for \emph{\#Features: 3}:\\
+\begin{center}
 \begin{tabular}{ c | c | c }
 \textbf{\# Trees} & \textbf{\% Accuracy} \\
 100 & 96.51\% \\
 200 & 96.66\% \\
 300 & 96.78\% \\
 400 & 96.75\% \\
+500 & 96.75\% \\
 \end{tabular}
+\captionof{table}{Results for 3-feature trees}
+\end{center}
+The best results were achieved with a number of 3 features per tree, other numbers only yielded worse results.
 
 \subsubsection{Modifying tree depth}
+Through modifying the maxial depth a tree is allowed to have we also tried to improve the results of our predictions.We observed that when reducing the depth drastically to something below 10, the prediction rate drops drastically. 
 
+\begin{center}
 
+\begin{tabular}{c | c }
+\textbf{Max depth} & \textbf{Accuracy}\\
+3 & 56.49\%\\
+6 & 73.97\%
+\end{tabular}
+\captionof{table}{Results below 10}
+\end{center}
+
+But when raising the depth to 20 - 30 the rates start to normalize again also clieb a bit higher than on runs with the default settings.
+\begin{center}
+
+\begin{tabular}{c | c }
+\textbf{Max depth} & \textbf{Accuracy}\\
+25 & 96.415\%\\
+26 & 96.42\%\\
+27 & 96.42\%\\
+28 & 96.41\%\\
+\end{tabular}
+\captionof{table}{Results above 25}
+\end{center}
+
+\subsubsection{Best combination}
+The best combination of settings we found was a Tree depth of 27 and the number of features set to 3. The result was a accuracy of \textbf{96.775\%}.
 \subsection{Decision Tree - 48J}
 TODO\\
 \subsection{Bayes Network}
 TODO\\
 \subsection{Conclusion}
-TODO\\
+\subsubsection{Letter mix-up}
+When predicting letters there are some which are pretty well distinguishable from one another and some are not. So it happens that its easy to confuse two letters which look similar to each other. This also applys to our machine learning algorithms. Some letters have a worse prediction rate than others. We can tell which characters are often confused by looking at the confusion matrix. It tells us how often a character was classified correctly or if not for which letter it was mistaken. This allows us also to tell whether the confusion is only going one-way. Meaning that one character is often mistaken for another one, but the other mostly classified correctly.\\
+The top candiates for confusion are:\\
+\begin{center}
+\begin{tabular}{ c c }
+\hline
+J & I \\
+P & F \\
+H & K \\
+Q & O \\
+\hline
+\end{tabular}
+\end{center}
+\paragraph{}\emph{J} and \emph{I} are mistaken with each other equally often, it seems to be generally harder to distinguish these two letters. This also seems to be logical as they look very similar and their geometrical properties could be very similar.\\
+Interestingly why \emph{Q} is often mistaken for \emph{O}, \emph{O} is much less mistaken for \emph{Q}. The same can be said about \emph{P} and \emph{F}, where \emph{P} is more often mistaken for \emph{F}, and \emph{H} and \emph{K}.
 
 
 % Section Data Set 2
@@ -314,6 +368,7 @@ We did not use any missing value replacement strategy for this classifier, as th
 \textbf{Number of Neighbors:}
 First, we experimented with the number of neighbors used by the classification algorithm. We did experiments with 1,2,3,4,5,6,8,10,20,50 and 100 neighbors.
 
+
 \begin{tabular}{ c | c | c | c | c | c}
 \textbf{\# of Neighbors} & \textbf{\% Correctly Classified} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad} & \textbf{F-Measure} & \textbf{ROC Area}\\
 1   & 96.25\% & 0.854 & 0.98  & 0.966 & 0.943\\
@@ -328,6 +383,7 @@ First, we experimented with the number of neighbors used by the classification a
 50  & 88.9 \% & 0.211 & 0.999 & 0.857 & 0.957\\
 100 & 88.2 \% & 0.161 & 0.999 & 0.843 & 0.959\\
 \end{tabular}
+
 
 Generally, we can observe that the classification task using K-NN rightly classifies the major part of instances. Depending on the number of neighbors up to almost 97\% of instances is classified correctly. The best results seem to emerge when the number of neighbors is fairly low, starting from 1 neighbor we see a slight increase in rightly classified instances up until 3 neighbors. After that the percentage of rightly classified instances starts to decrease again. Looking at the F-Measure our assumption that we find the best classification results by using around 3-4 neighbors is further strengthened as we see F-Measure values of 0.966 for each case. The ROC curve however tells a slightly different story. Here we can we the highest values for 8-20 neighbors, but the overall the values lie in a range between 0.943 and 0.967 and are therefore quite small.
 
@@ -356,7 +412,9 @@ No distance & 100 & 88.2 \% & 0.161 & 0.999 & 0.843 & 0.959\\
 1/distance  & 100 & 90.18\% & 0.305 & 0.999 & 0.879 & 0.972\\
 1-distance  & 100 & 88.2 \% & 0.161 & 0.999 & 0.843 & 0.963\\
 
-TODO: Observation & Conclusion
+\end{tabular}
+
+TODO: Observation \& Conclusion
 
 \subsection{Random Forest}
 TODO\\
