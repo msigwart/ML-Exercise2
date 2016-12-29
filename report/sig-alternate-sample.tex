@@ -150,7 +150,7 @@
 \maketitle
 \begin{center}
 \begin{tabular}{l| c r}
-Group: & Lukas Stanek & 1027203 \\ % Partner names
+Group & Lukas Stanek & 1027203 \\ % Partner names
 & Thomas Appler \\
 & Marten Sigwart & 1638152 \\
 \end{tabular}
@@ -322,9 +322,109 @@ But when raising the depth to 20 - 30 the rates start to normalize again also cl
 \subsubsection{Best combination}
 The best combination of settings we found was a Tree depth of 27 and the number of features set to 3. The result was a accuracy of \textbf{96.775\%}.
 \subsection{Decision Tree - 48J}
-TODO\\
+As for this implementation of the decision tree we also started with the default settings for this data set. The first results were significantly worse compared to the other algorithms. The prediction accuracy was down to 87.92\% and also the ROC Area had dropped to 0.954 (The other algorithms were basically at 0.99 or 1). The tree had 1226 leafs and a size of 2451.
+\subsubsection{Number of objects per leaf}
+At first we tried to modify the minimum number of objects per leaf. With the default being two we tried to set it to one, which increased the number of leafs to 1771 and the size of the tree to 3541. The result was slightly better but it seemed like overfitting. \\
+Although increasing the number of minimum nodes per tree resulted in worse results.\\
+
+\begin{center}
+\begin{tabular}{ c | c | c | c}
+\textbf{Obj. per leaf} & \textbf{\% Accuracy} & \textbf{\# Leafs} & \textbf{Treesize}\\
+\hline
+1 & 88.66\% & 1771 & 3541\\
+2 & 87.92\% & 1226 & 2451\\
+3 & 87.20\% & 1015 & 2029\\
+4 & 86.36\% & 852 & 1703\\
+5 & 85.82\% & 750 & 1499\\
+8 & 84.07\% & 563 & 1125\\
+\end{tabular}
+\captionof{table}{Results for varying obj per leaf}
+\end{center}
+
+\subsubsection{Pruning}
+Pruning helps to prevent overfitting a decison tree, so that it is specialized to one dataset and does not generalize well. We adjusted a setting called confidence factor to influence the amount of pruning done during model creation. A higher confidence factor results in less pruning.
+
+
+\begin{center}
+\begin{tabular}{ c | c | c | c}
+\textbf{Confidence Factor} & \textbf{\% Accuracy} & \textbf{\# Leafs} & \textbf{Treesize}\\
+\hline
+0.1 & 87.85\% & 1138 & 2275\\
+0.2 & 87.88\% & 1198 & 2395\\
+0.3 & 87.96\% & 1255 & 2509\\
+0.4 & 87.94\% & 1255 & 2509\\
+0.5 & 87.96\% & 1267 & 2533\\
+0.6 & 87.98\% & 1303 & 2605\\
+\end{tabular}
+\captionof{table}{Ajusting the confidence factor}
+\end{center}
+
+The accuracy is increasing when pruning is decreased, but this would also increase the chances of the tree being overfitted.\\
+It is also possible to change the pruning mode from C4.5 pruning to reduced-error pruning. It yields slighly worse results than the default pruning method.
+
+
 \subsection{Bayes Network}
-TODO\\
+When using da Bayes Network implementation in Weka we can adjust 2 settings, the \emph{estimator} and the \emph{searchAlgorithm}. With the default settings, which use the K2 search algorithm, the result is an accuracy of \emph{74.31\%}. We were able to improve the prediction by increasing the size of parents every network node is allowed to have.
+
+\begin{center}
+\begin{tabular}{ c | c }
+\textbf{Max \# parents} & \textbf{\% Accuracy} \\
+\hline
+1  & 74.31\% \\
+2  & 83.69\% \\
+3  & 86.72\% \\
+4  & 86.76\% \\
+5  & 86.76\% \\
+10 & 86.76\% \\
+\end{tabular}
+\captionof{table}{Ajusting the ne maximum number of parents of a node}
+\end{center}
+
+\paragraph{}After using a random order of node in the network the results got slightly better, but unfortionatly the random function takes no seed, so that the results vary over time.
+
+\begin{center}
+\begin{tabular}{ c | c }
+\textbf{Round} & \textbf{\% Accuracy} \\
+\hline
+1  & 88.455\% \\
+2  & 88.26\% \\
+3  & 88.46\% \\
+4  & 88.185\% \\
+5  & 87.88\% \\
+\end{tabular}
+\captionof{table}{Accuracy of random node order}
+\end{center}
+
+\subsubsection{HillClimber}
+By using the Hill climber algorithm we could achieve once again better results. But we needed to raise the number of parent nodes agian.
+\begin{center}
+\begin{tabular}{ c | c }
+\textbf{\# Parents} & \textbf{\% Accuracy} \\
+\hline
+1  & 74.31\% \\
+4  & 89.45\% \\
+6  & 89.45\% \\
+\end{tabular}
+\captionof{table}{Accuracy HillClimber search algorithm}
+\end{center}
+
+We could achieve similar results with the other Hillclimber algorithms \emph{LAGDHillclimber} and \emph{Repeated HillClimber} . They also achieved results of 89\% and above.
+
+\subsubsection{Tabu search}
+When using the Tabu Search algorithm we could also improve our results by increasing the number of runs and the length of the tabu list.
+\begin{center}
+\begin{tabular}{ c | c  | c | c }
+\textbf{\# Parents} & \textbf{\# Runs} & \textbf{Length Tabu list}  & \textbf{\% Accuracy} \\
+\hline
+1  & 10 & 5 & 74.31\% \\
+4  & 10 & 5 & 84.26\% \\
+4  & 100 & 10&  89.45\% \\
+\end{tabular}
+\captionof{table}{Accuracy Tabu search algorithm}
+\end{center}
+
+\paragraph{}So for Bayes Networks and this data set you should be using HillClimber based algorithms as they perform slighlty better than a K2. We could not test the genetic search algorithm as the computation time was to long.
+
 \subsection{Conclusion}
 \subsubsection{Letter mix-up}
 When predicting letters there are some which are pretty well distinguishable from one another and some are not. So it happens that its easy to confuse two letters which look similar to each other. This also applys to our machine learning algorithms. Some letters have a worse prediction rate than others. We can tell which characters are often confused by looking at the confusion matrix. It tells us how often a character was classified correctly or if not for which letter it was mistaken. This allows us also to tell whether the confusion is only going one-way. Meaning that one character is often mistaken for another one, but the other mostly classified correctly.\\
