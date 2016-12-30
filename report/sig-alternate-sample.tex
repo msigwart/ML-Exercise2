@@ -548,20 +548,163 @@ TODO\\
 
 
 % Section Data Set 4
-\section{Data Set 4: Congressional Voting}
-TODO\\
-\subsubsection{Preprocessing}
-TODO what preprocessing was done\\
-\subsubsection{K-Nearest Neighbours}
-TODO\\
-\subsubsection{Random Forest}
-TODO\\
-\subsubsection{Decision Tree - 48J}
-TODO\\
-\subsubsection{Bayes Network}
-TODO\\
-\subsubsection{Conclusion}
-TODO\\
+\section{Data Set 1: Congressional Voting}
+
+This data set contains 16 votes on different topics (like immigration, education spending) for each of the US House of representatives Congressmen. Those 16 votes were identified by the CQA as the 16 key votes. The CQA lists nine different types of votes, which are simplified here to yea (voted for, paired for, announced for), nay (voted against, paired against, announced against) and unknown (voted present, voted present to avoid conflict of interest, no vote or unknown position). The objective here is now to predict, whether a person is republican or democrat. 
+So in total, the data set is quite small and contains 18 attributes (id, class and 16 topics) and 218 instances. 
+
+\subsection{Preprocessing}
+ 
+First we removed the attribute "id", due to the fact that attributes with unique values do not contain useful information. The second step was to replace all values "unknown" with "?", so that Weka is able to interpret this as missing values, and not as nominal values. To treat the missing values, we used the preprocessing command "ReplaceMissingValues", which replaces every "?" with the mode, that means with the value which appears the most.
+Another approach can be to first transform all nominal values to numerical zeros and ones and perform then the “ReplaceMissingValues” command. This way, all missing values are not replaced with the mode of the attribute, but with the mean. This means that these values may be between zero and one. But it turned out, that this approach decreases our prediction accuracy in most cases, therefore we will not use this method.
+Another approach could be also to remove all instances with missing values. But in this case it does not make much sense, because the rate of missing values is quite high and the size of the set is very small. Therefore we would eliminate too much instances. 
+ 
+
+\subsection{kNN}
+ 
+
+\subsubsection{parameter k}
+ 
+With default setting we first tested the data set with an 10-fold cross validation with different values for “k” and it turned out, that three gives us the best accuracy rate of 93.12\%. But also with values 6 and 7 for k the results are quite good. In general it looks like every value for k works quite good for this data set. Although the prediction rate gets worse with high values for k, the decrease is not that big. For example if k is 40, the accuracy decreases just about 3 percent. Also for k equal 1 the result is very good (91.74\%). Considering that that data set is very small, this means that just 3 instances of 218 were misclassified more than with k equals 3. It looks like, that except some outliers, the data is relatively good seperated, because about 92\% of the instances have a nearest neighbour with the same class. An interesting observation is also that the weighted ROC area stays very high, also for high values for k. For example for values 16-40, the weighted ROC area is even higher, that the ROC area with k equals 3. After that we also tried the two different weighting approaches, but they had no impact on the results. All results with different k's are shown the following table.
+ 
+ \begin{center}
+\begin{tabular}{ c | c | c | c }
+\textbf{k} & \textbf{\% Accuracy} & \textbf{F-Measure} & \textbf{ROC area} \\
+1 & 91.7431 & 0.918 & 0.955 \\
+2 & 91.7431 & 0.918 & 0.962 \\
+3 & 93.1193 & 0.932 & 0.974 \\
+4 & 91.7431 & 0.918 & 0.979 \\
+5 & 91.2844 & 0.914 & 0.981 \\
+6 & 92.2018 & 0.923 & 0.972 \\
+7 & 92.2018 & 0.923 & 0.973 \\
+8 & 91.7431 & 0.918 & 0.976 \\
+10 & 91.2844 & 0.914 & 0.976 \\
+16 & 91.2844 & 0.914 & 0.981 \\
+20 & 91.2844 & 0.914 & 0.982 \\
+40 & 89.9083 & 0.900 & 0.981 \\
+100 & 88.0734 & 0.882 & 0.969 \\
+\end{tabular}
+\captionof{table}{Results for default settings and different \# of trees}
+\end{center}
+ 
+\subsubsection{Distance Functions and Search Methods}
+ 
+Except the “chebyshev” distance function, all distance functions lead to the same result. With the “chebyshev” distance the accuracy got a lot worse and decreased to 72.48\%. When weighting the the neighbours, the “manhattan” distance function decreased the precision rate, but just to 90.82\%. Due to the fact that there are just 218 instances, other search methods that thee default one do not really have a noticeable effect on performance.
+ 
+\subsection{Random Forest}
+ 
+\subsubsection{Number of trees}
+ 
+With default settings we first started to vary the number of trees and it turned out, that 16 gave us the best result of 97.25\% accuracy and the lower the number is, the worse the result. As expected, because of the small data set the ideal number is quit low. But also with a higher number of trees the classifier yielded almost the same resault (96.789\% accuracy). But this difference is not significantly worse, because just one instance more was misclassified. This means that increasing the number of trees improves the result, until a point, where it stays the same.
+ 
+\begin{center}
+\begin{tabular}{ c | c | c | c }
+\textbf{num. trees} & \textbf{\% Accuracy} & \textbf{F-Measure} & \textbf{ROC area} \\
+100 & 96.789 & 0.968 & 0.996 \\
+50 & 96.789 & 0.968 &  0.996 \\
+20 & 96.789 & 0.968 & 0.995 \\
+17 & 96.789 & 0.968 & 0.994 \\
+16 & 97.2477 & 0.973 & 0.994 \\
+14 & 95.8716 & 0.959 & 0.994 \\
+8 & 95.4128 & 0.968 & 0.992 \\
+\end{tabular}
+\captionof{table}{Results for default settings and different \# of trees}
+\end{center}
+ 
+\subsubsection{Number of Attributes}
+ 
+The default number of attributes until now was 5 (log2(#attributes)+1). After testing with different numbers, it turned out, that just very low values (<4) and high values (>14) lead to worse results. Others in between lead to almost the same result.
+ 
+\begin{center}
+\begin{tabular}{ c | c | c | c }
+\textbf{num of. att.} & \textbf{\% Accuracy} & \textbf{F-Measure} & \textbf{ROC area} \\
+16 & 95.8716 & 0.959 & 0.987  \\
+15 & 95.8716 & 0.959 & 0.987 \\
+14 & 96.789 &  0.968 & 0.989 \\
+12 & 97.2477 & 0.973 & 0.992 \\
+10 & 97.7064 & 0.977 & 0.989 \\
+8 & 97.2477 & 0.973 & 0.992 \\
+5 & 97.2477 & 0.973 & 0.992 \\
+4 & 96.789 & 0.968 & 0.995 \\
+3 & 96.3303 & 0.963 & 0.989 \\
+2 & 94.9541 & 0.950 & 0.992 \\
+\end{tabular}
+\captionof{table}{Results for default settings and different \# of trees}
+\end{center} 
+
+\subsubsection{Tree depth}
+ 
+In the default settings, an unlimited depth of trees is possible. As expected, limiting the maximal depth of trees did not improve our results. If maximal tree depth is smaller than 8, the result is worse, if it is 8 or more, the result stays the same.
+ 
+\begin{center}
+\begin{tabular}{ c | c | c | c }
+\textbf{max depth} & \textbf{\% Accuracy} & \textbf{F-Measure} & \textbf{ROC area} \\
+2 & 96.3303 & 0.963 & 0.990 \\
+4 & 96.789 & 0.968 & 0.991 \\
+6 & 97.2477 & 0.973 & 0.988 \\
+8 & 97.7064 & 0.977 & 0.989 \\
+20 & 97.7064 & 0.977 & 0.989 \\
+100 & 97.7064 & 0.977 & 0.989 \\
+\end{tabular}
+\captionof{table}{Results for default settings and different \# of trees}
+\end{center}
+ 
+\subsection{Decision tree}
+ 
+\subsubsection{Pruning}
+ 
+First we compared the results of the decision tree with and without pruning. We used the default settings and gained an increase of 1.38\% accuracy with pruning. Next we tested the parameter confidence factor, which is used for pruning. It turned out, that with a confidence factor from 0.25 to 0.5, the result stays the same. But if this factor is less than 0.25 or higher than 0.5 the result gets worse, although the difference is not that big. In general, pruning improves the results, but not significantly. Usually the problem of an unpruned tree is, that it is too specialized. But in our case, this is not really the case. Just 3 instances more are misclassified, than with an pruned tree. 
+ 
+\begin{center}
+\begin{tabular}{ c | c | c | c }
+\textbf{pruned} & \textbf{confidence fac.} & \textbf{\% Accuracy} & \textbf{F-Measure} & \textbf{ROC area} \\
+no & - & 95.4128 & 0.954 & 0.969 \\
+yes & 0.1 & 96.3303 & 0.963 & 0.943 \\
+yes & 0.25 & 96.789 & 0.968 & 0.952 \\	
+yes & 0.50 & 96.789 & 0.968 & 0.952 \\
+yes & 0.55 & 95.4128 & 0.954 & 0.969 \\
+yes & 0.70 & 95.4128 & 0.954 & 0.969 \\
+\end{tabular}
+\captionof{table}{Results for default settings and different \# of trees}
+\end{center} 
+
+\subsubsection{Other parameters}
+ 
+Changing other parameters like “collapseTree”, “useLaplace” or “numFolds” had no impact on the results in this case. The only other parameter which made a noticeable difference was minNumObj. If this parameter is not set to 2 or 3, the results get worse.
+ 
+ 
+\subsection{Bayesian Network}
+ 
+\subsubsection{Search algorithm}
+ 
+First we started to test the classifier with different search algorithms. With the default search algorithm “k2”, we gained an accuracy of 89.9\% and it turned out, that other methods like hillclimbing, repeated hillclimbing and “tabu search” lead to exactly the same result. The best result is yield with the TAN-search, which increased the accuracy rate to 95.41\%. Also the method simulated annealing leads to good results, but the performance is a lot worse. The runtime increased from about 0.02 seconds to almost two seconds. 
+ 
+
+\begin{center}
+\begin{tabular}{ c | c | c | c }
+\textbf{Search algo.} & \textbf{\% Accuracy} & \textbf{F-Measure} & \textbf{ROC area} \\
+K2 & 89.9083 & 0.900 & 0.977 \\
+LAGDHillClimber & 90.8257 & 0.909 & 0.982 \\
+SimulatedAnnealing & 94.4954  & 0,945 & 0.986 \\
+TAN & 95.4128 & 0.954 & 0.992 \\
+\end{tabular}
+\captionof{table}{Results for default settings and different \# of trees}
+\end{center}
+
+
+
+ 
+\subsubsection{Other parameters}
+
+We also tried out other estimator functions, but it turned out that except the “MultiNominalBMAEstimator” function all lead to the same result. “MultiNominalBMAEstimator” just decreases the prediction rate dramatically, which is obvious because the set contains binary nominal data, and not “multinominal” data. After that we also tested the “useADTree” parameter, but it also had no impact on the result. 
+
+\subsection{Conclusion}
+
+In general, all classifiers worked relatively well on this data set and had a prediction rate over 90\%, most of them even over 95\%. It seems, that except of some outliers, the data of the set is well distributed. A sign for this for example is the outcome of the “kNN” tests. There we have seen that almost 92\% of all instances have a closest neighbour with the same class. And also with a greater value of “k”, the results do not change dramatically. Also the difference between a unpruned tree and a pruned tree is not that big, which means that even the unpruned tree gives us a good generalisation of the data. 
+ 
+ 
+ 
+
 
 
 \section{Conclusion}
