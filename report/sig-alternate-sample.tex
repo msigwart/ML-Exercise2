@@ -46,7 +46,7 @@
 % For tracking purposes - this is V2.0 - May 2012
 
 \documentclass{article}
-\usepackage{capt-of}
+\usepackage{caption}
 
 \begin{document}
 
@@ -249,6 +249,7 @@ At first we started out using the default KNN implementation of Weka with defaul
 The default settings for Random Forests are 100 trees with unlimited depth, the number of randomly chosen features per tree is calculated by \textit{log\_2(\#attributes) + 1}.
 \subsubsection{Number of Trees} We started out with the default settings and varying the number of trees, starting at 100 trees. The result yielded was already at 96.41\% accuracy. Further increasing the number of trees improved the result continuously, but also increased the computation time. 
 \\\\
+\begin{center}
 \begin{tabular}{ c | c | c }
 \textbf{\# Trees} & \textbf{\% Accuracy} & \textbf{Computation time (s)} \\
 50 & 96.10\% & 3.1s \\
@@ -258,6 +259,9 @@ The default settings for Random Forests are 100 trees with unlimited depth, the 
 400 & 96.54\% & 24.46s \\
 500 & 96.58\% & 30.66s\\
 \end{tabular}
+\captionof{table}{Results for default settings and different \# of trees}
+\end{center}
+
 
 \paragraph{}Though the performance is improving with the number of trees, the improvements are getting smaller. While an increase of trees from 50 to 100 trees results in a gain of 0.3 percent, the increase from 400 to 500 trees only gains 0.04 percent accuracy. 
 \subsubsection{Increasing Execution Slots}For computing a 10-fold cross-validation at 500 trees on one single thread, the taken time was 5:55min. In order to improve this, the number of execution slots (=threads) can be increased. When repeating the same operation with 10 slots our computation time improved to 1:56min. \\
@@ -265,13 +269,18 @@ Using 50 threads we calculated a model with 1000 trees, which yielded the best r
 \subsubsection{Modifying number of features per tree}
 Through varying the number of features which will be selected per tree, we tried to increase the accuracy. \\
 Results for \emph{\#Features: 3}:\\
+\begin{center}
 \begin{tabular}{ c | c | c }
 \textbf{\# Trees} & \textbf{\% Accuracy} \\
 100 & 96.51\% \\
 200 & 96.66\% \\
 300 & 96.78\% \\
 400 & 96.75\% \\
+500 & 96.75\% \\
 \end{tabular}
+\captionof{table}{Results for 3-feature trees}
+\end{center}
+The best results were achieved with a number of 3 features per tree, other numbers only yielded worse results.
 
 \subsubsection{Modifying tree depth}
 Through modifying the maxial depth a tree is allowed to have we also tried to improve the results of our predictions.We observed that when reducing the depth drastically to something below 10, the prediction rate drops dramatically. 
@@ -301,7 +310,48 @@ But when raising the depth to 20 - 30 the rates start to normalize again also cl
 \subsubsection{Best combination}
 The best combination of settings we found was a Tree depth of 28 and the number of features set to 3. The result was a accuracy of \textbf{96.79\%}.
 \subsection{Decision Tree - 48J}
-TODO\\
+As for this implementation of the decision tree we also started with the default settings for this data set. The first results were significantly worse compared to the other algorithms. The prediction accuracy was down to 87.92\% and also the ROC Area had dropped to 0.954 (The other algorithms were basically at 0.99 or 1). The tree had 1226 leafs and a size of 2451.
+ \subsubsection{Number of objects per leaf}
+ At first we tried to modify the minimum number of objects per leaf. With the default being two we tried to set it to one, which increased the number of leafs to 1771 and the size of the tree to 3541. The result was slightly better but it seemed like overfitting. \\
+ Although increasing the number of minimum nodes per tree resulted in worse results.\\
+ 
+ \begin{center}
+ \begin{tabular}{ c | c | c | c}
+ \textbf{Obj. per leaf} & \textbf{\% Accuracy} & \textbf{\# Leafs} & \textbf{Treesize}\\
+ \hline
+ 1 & 88.66\% & 1771 & 3541\\
+ 2 & 87.92\% & 1226 & 2451\\
+ 3 & 87.20\% & 1015 & 2029\\
+ 4 & 86.36\% & 852 & 1703\\
+ 5 & 85.82\% & 750 & 1499\\
+ 8 & 84.07\% & 563 & 1125\\
+ \end{tabular}
+ \captionof{table}{Results for varying obj per leaf}
+ \end{center}
+ 
+ \subsubsection{Pruning}
+ Pruning helps to prevent overfitting a decison tree, so that it is specialized to one dataset and does not generalize well. We adjusted a setting called confidence factor to influence the amount of pruning done during model creation. A higher confidence factor results in less pruning.
+ 
+ 
+ \begin{center}
+ \begin{tabular}{ c | c | c | c}
+ \textbf{Confidence Factor} & \textbf{\% Accuracy} & \textbf{\# Leafs} & \textbf{Treesize}\\
+ \hline
+ 0.1 & 87.85\% & 1138 & 2275\\
+ 0.2 & 87.88\% & 1198 & 2395\\
+ 0.3 & 87.96\% & 1255 & 2509\\
+ 0.4 & 87.94\% & 1255 & 2509\\
+ 0.5 & 87.96\% & 1267 & 2533\\
+ 0.6 & 87.98\% & 1303 & 2605\\
+ \end{tabular}
+ \captionof{table}{Ajusting the confidence factor}
+ \end{center}
+ 
+ The accuracy is increasing when pruning is decreased, but this would also increase the chances of the tree being overfitted.\\
+ It is also possible to change the pruning mode from C4.5 pruning to reduced-error pruning. It yields slighly worse results than the default pruning method.
+ 
+ 
+
 \subsection{Bayes Network}
 When using da Bayes Network implementation in Weka we can adjust 2 settings, the \emph{estimator} and the \emph{searchAlgorithm}. With the default settings, which use the K2 search algorithm, the result is an accuracy of \emph{74.31\%}. We were able to improve the prediction by increasing the size of parents every network node is allowed to have.
 
@@ -447,7 +497,7 @@ Next, we experimented with different distance weighting settings. In Weka one ca
 
 \begin{center}
 \begin{tabular}{c | c | c | c | c}
-\textbf{Distance Weighting} & \textbf{\# of Neighbors} & \textbf{\% Correctly Classified} & \textbf{F-Measure} & \textbf{ROC Area}\\
+\textbf{Distance Weight} & \textbf{\# of Neighbors} & \textbf{\% Correctly Classified} & \textbf{F-Measure} & \textbf{ROC Area}\\
 No distance & 2   & 95.58\% & 0.956 & 0.953\\
 1/distance  & 2   & 96.43\% & 0.964 & 0.964\\
 1-distance  & 2   & 96.46\% & 0.964 & 0.963\\
@@ -849,6 +899,6 @@ Another important parameter here is the number of features used per tree. We saw
 
 \subsection{Bayes Network}
 
-\subsection{Classifier comparison}
+
 
 \end{document}
