@@ -630,11 +630,11 @@ With default settings we first started to vary the number of trees and it turned
  
 \subsubsection{Number of Attributes}
  
-The default number of attributes until now was 5 (log2(#attributes)+1). After testing with different numbers, it turned out, that just very low values (<4) and high values (>14) lead to worse results. Others in between lead to almost the same result.
+The default number of attributes until now was 5 (log2(\#attributes)+1). After testing with different numbers, it turned out, that just very low values (<4) and high values (>14) lead to worse results. Others in between lead to almost the same result.
  
 \begin{center}
 \begin{tabular}{ c | c | c | c }
-\textbf{num of. att.} & \textbf{\% Accuracy} & \textbf{F-Measure} & \textbf{ROC area} \\
+\textbf{num of. att.} & \textbf{\% Accuracy} & \textbf{F-Measure} & \textbf{ROC area}\\
 16 & 95.8716 & 0.959 & 0.987  \\
 15 & 95.8716 & 0.959 & 0.987 \\
 14 & 96.789 &  0.968 & 0.989 \\
@@ -673,8 +673,8 @@ In the default settings, an unlimited depth of trees is possible. As expected, l
 First we compared the results of the decision tree with and without pruning. We used the default settings and gained an increase of 1.38\% accuracy with pruning. Next we tested the parameter confidence factor, which is used for pruning. It turned out, that with a confidence factor from 0.25 to 0.5, the result stays the same. But if this factor is less than 0.25 or higher than 0.5 the result gets worse, although the difference is not that big. In general, pruning improves the results, but not significantly. Usually the problem of an unpruned tree is, that it is too specialized. But in our case, this is not really the case. Just 3 instances more are misclassified, than with an pruned tree. 
  
 \begin{center}
-\begin{tabular}{ c | c | c | c }
-\textbf{pruned} & \textbf{confidence fac.} & \textbf{\% Accuracy} & \textbf{F-Measure} & \textbf{ROC area} \\
+\begin{tabular}{ c | c | c | c | c }
+\textbf{pruned} & \textbf{confidence fac.} & \textbf{\% Accuracy} & \textbf{F-Measure} & \textbf{ROC area}\\
 no & - & 95.4128 & 0.954 & 0.969 \\
 yes & 0.1 & 96.3303 & 0.963 & 0.943 \\
 yes & 0.25 & 96.789 & 0.968 & 0.952 \\	
