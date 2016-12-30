@@ -215,9 +215,9 @@ TODO\\
 
 % Section Data Set 1
 \section{Data Set 1: Letter Recognition}
-The objective for this data set is to predict a letter shown on a rectangular, black and white, display. There are 16 numerical features  provided for determining the correct letter. These attributes provide information about statistical properties of the letter like total number of pixels, width, mean of x-axis pixels, etc.
+The objective for this data set is to predict a letter shown on a rectangular, black and white, display. There are 16 numerical features  provided for determining the correct letter. These attributes provide information about statistical properties of the letter, like total number of pixels, width, mean of x-axis pixels, etc.
 All of these values were then scaled into a range from 0 through 15. The 26 capital letters to predict in this set were taken from 20 different fonts. The letters are more or less evenly spread over the 20.000 instances, within a range of 734 to 813 occurrences. This data set contains no missing values. For comparable results 10-fold cross validation was used to measure the algorithms precision.
-As for performance criteria with this data set only the percentage of correctly classified instances will be considered. The reason for this being that if a letter is wrongly classified, it doesn't matter which other letter was recognized instead of the correct one. 
+As performance criteria for this data set only the percentage of correctly classified instances will be considered. The reason for this being that if a letter is wrongly classified, it doesn't matter which other letter was recognized instead of the correct one. 
 \\
 \subsection{Preprocessing}
 As the data set was only provided as CSV file without header row, we added a header row for displaying the attribute names in Weka and therefore facilitating the analysis of the results. 
@@ -228,14 +228,18 @@ The algorithm is generally very fast, even with 100 neighbors, it is usually fin
 \subsubsection{Default implementation}
 At first we started out using the default KNN implementation of Weka with default settings. The defaults are a \emph{LinearNN} search algorithm with the \emph{Eucledian distance} as distance function. We started out with increasing the amount of neighbors starting at one. Though with this settings we got the best results using just the nearest neighbor. 
 \\\\
+\begin{center}
 \begin{tabular}{ l | c |c }
 \textbf{K} & \textbf{\% Correct} & \textbf{\% Wrong} \\
 1 & 95.96 & 4.04 \\
 2 & 94.925 & 5.075 \\
 3 & 95.635 & 4.365 \\
 \end{tabular}
+\captionof{table}{Results with default settings}
+\end{center}
 \paragraph{}In order to improve the results we started with weighting the neighbors after their distance which helped us further improving the results. The best results where achieved by weighting the neighbors \emph{1/distance}. While the results yielded by the weighting function \emph{1-distance} where also better than without weighting, the were not as good.
 \\\\
+\begin{center}
 \begin{tabular}{ l | c | c }
 \textbf{K} & \textbf{\% Correct} & \textbf{\% Wrong} \\
 1 & 95.96 & 4.04 \\
@@ -246,20 +250,25 @@ At first we started out using the default KNN implementation of Weka with defaul
 6 & 96.015 & 3.985 \\
 8 & 95.75 & 4.25 \\
 \end{tabular}
+\captionof{table}{Results with weighting 1/d}
+\end{center}
 \paragraph{}With high values for K the prediction rates get worse. 
 \\\\
+\begin{center}
 \begin{tabular}{ l | c | c }
 \textbf{K} & \textbf{\% Correct} & \textbf{\% Wrong} \\
 40 & 90.915 & 9.085 \\
 100 &  84.3 & 15.7 \\
 \end{tabular}
-\subsubsection{Manhattan Distance} did not improve our prediction, although again when the neighbors were weighted by their distance the success rate improved.
-\subsubsection{Chebyshev Distance} also did not improve the result, as it only takes the distance between the attributes which are farthest away from each other as result. As for weighting again, the results improved slightly when using weighted neighbors.
+\captionof{table}{Results for high K's}
+\end{center}
+\subsubsection{Manhattan Distance} Using Manhattan distance did not improve our prediction, although again when the neighbors were weighted by their distance the success rate improved.
+\subsubsection{Chebyshev Distance} Also Chebyshev distance did not improve the result, as it only takes the distance between the attributes which are farthest away from each other as result. As for weighting again, the results improved slightly when using weighted neighbors.
 \subsubsection{KD Tree Search Method} improves the run time of the classification significantly. The time for evaluating the models with 10-folds cross validation decreased by 66\%. 
 
 \subsection{Random Forest}
-The default settings for Random Forests are 100 Trees with unlimited depth, the number of randomly chosen features per tree is calculated by \textit{log\_2(\#predictors) + 1}.
-\paragraph{Number of Trees} We started out with the default settings and varying the number of trees, starting at 100 trees. The result yielded was already at 96.41\% accuracy. Further increasing the number of trees improved the result continuously, but also increased the computation time. 
+The default settings for Random Forests are 100 trees with unlimited depth, the number of randomly chosen features per tree is calculated by \textit{log\_2(\#attributes) + 1}.
+\subsubsection{Number of Trees} We started out with the default settings and varying the number of trees, starting at 100 trees. The result yielded was already at 96.41\% accuracy. Further increasing the number of trees improved the result continuously, but also increased the computation time. 
 \\\\
 \begin{center}
 \begin{tabular}{ c | c | c }
@@ -294,7 +303,7 @@ Results for \emph{\#Features: 3}:\\
 The best results were achieved with a number of 3 features per tree, other numbers only yielded worse results.
 
 \subsubsection{Modifying tree depth}
-Through modifying the maxial depth a tree is allowed to have we also tried to improve the results of our predictions.We observed that when reducing the depth drastically to something below 10, the prediction rate drops drastically. 
+Through modifying the maxial depth a tree is allowed to have we also tried to improve the results of our predictions.We observed that when reducing the depth drastically to something below 10, the prediction rate drops dramatically. 
 
 \begin{center}
 
@@ -306,7 +315,7 @@ Through modifying the maxial depth a tree is allowed to have we also tried to im
 \captionof{table}{Results below 10}
 \end{center}
 
-But when raising the depth to 20 - 30 the rates start to normalize again also clieb a bit higher than on runs with the default settings.
+But when raising the depth to 20 - 30 the rates start to normalize again also climb a bit higher than on runs with the default settings.
 \begin{center}
 
 \begin{tabular}{c | c }
@@ -320,7 +329,7 @@ But when raising the depth to 20 - 30 the rates start to normalize again also cl
 \end{center}
 
 \subsubsection{Best combination}
-The best combination of settings we found was a Tree depth of 27 and the number of features set to 3. The result was a accuracy of \textbf{96.775\%}.
+The best combination of settings we found was a Tree depth of 28 and the number of features set to 3. The result was a accuracy of \textbf{96.79\%}.
 \subsection{Decision Tree - 48J}
 As for this implementation of the decision tree we also started with the default settings for this data set. The first results were significantly worse compared to the other algorithms. The prediction accuracy was down to 87.92\% and also the ROC Area had dropped to 0.954 (The other algorithms were basically at 0.99 or 1). The tree had 1226 leafs and a size of 2451.
 \subsubsection{Number of objects per leaf}
@@ -380,7 +389,7 @@ When using da Bayes Network implementation in Weka we can adjust 2 settings, the
 \captionof{table}{Ajusting the ne maximum number of parents of a node}
 \end{center}
 
-\paragraph{}After using a random order of node in the network the results got slightly better, but unfortionatly the random function takes no seed, so that the results vary over time.
+\paragraph{}After using a random order of node in the network the results got slightly better, but unfortionatly the random function takes no seed, so that the results vary every run.
 
 \begin{center}
 \begin{tabular}{ c | c }
@@ -430,20 +439,18 @@ When using the Tabu Search algorithm we could also improve our results by increa
 When predicting letters there are some which are pretty well distinguishable from one another and some are not. So it happens that its easy to confuse two letters which look similar to each other. This also applys to our machine learning algorithms. Some letters have a worse prediction rate than others. We can tell which characters are often confused by looking at the confusion matrix. It tells us how often a character was classified correctly or if not for which letter it was mistaken. This allows us also to tell whether the confusion is only going one-way. Meaning that one character is often mistaken for another one, but the other mostly classified correctly.\\
 The top candiates for confusion are:\\
 \begin{center}
-\begin{tabular}{ c c }
-\hline
+\begin{tabular}{  c |  c  }
 J & I \\
 P & F \\
 H & K \\
 Q & O \\
-\hline
 \end{tabular}
 \end{center}
-\paragraph{}\emph{J} and \emph{I} are mistaken with each other equally often, it seems to be generally harder to distinguish these two letters. This also seems to be logical as they look very similar and their geometrical properties could be very similar.\\
-Interestingly why \emph{Q} is often mistaken for \emph{O}, \emph{O} is much less mistaken for \emph{Q}. The same can be said about \emph{P} and \emph{F}, where \emph{P} is more often mistaken for \emph{F}, and \emph{H} and \emph{K}.
+\paragraph{}\emph{J} and \emph{I} are mistaken for each other equally often, it seems to be generally harder to distinguish these two letters. This also seems to be logical as they look very similar and their geometrical properties could be very similar.\\
+Interestingly \emph{Q} is often mistaken for \emph{O}, \emph{O} is much less often mistaken for \emph{Q}. The same can be said about \emph{P} and \emph{F}, where \emph{P} is more often mistaken for \emph{F}, and \emph{H} and \emph{K}.
 
 \subsubsection{Best Alghorithm}
-The best algorithm to use for this dataset seems to be a random forest with a tree depth of 27, 3 features per tree and a total amount of 500 trees. It results in a total amount of 96.775\% of instances classified correctly and a ROC Area of 1. The KNN algorithm is also performing well, with the best value at 96.115\% accuracy. Compared to ther better ones, 48J and the Bayes Network are not perfoming that well with peak values at around 87\% accuracy. 
+The best algorithm to use for this dataset seems to be a random forest with a tree depth of 28, 3 features per tree and a total amount of 300 trees. It results in a total amount of 96.78\% of instances classified correctly and a ROC Area of 1. The KNN algorithm is also performing well, with the best value at 96.115\% accuracy. Compared to ther better ones, 48J and the Bayes Network are not perfoming that well with peak values at around 87\% accuracy. 
 
 % Section Data Set 2
 \section{Data Set 2: Internet Advertisements}
@@ -534,11 +541,11 @@ TODO\\
 
 % Section Data Set 3
 \section{Data Set 3: Leukemia}
-With only 50 instances the leukemia data set has a very low amount of instances but in turn has 7130 features which is a really high amount. These 7130 features shall be used to determine whether the given patient hast cancer or not.  \\
+With only 50 instances the leukemia data set has a very low amount of instances but in return has 7130 features which is a really high amount. These 7130 features shall be used to determine whether the given patient has cancer or not.  \\
 \subsubsection{Preprocessing}
 As the data set was given in the CSV format and the class as a binary 0 or 1, Weka interpreted the class as numeric and was set to do regression analysis. Via the preprocessing step \emph{NumericToNominal} we converted it to a nominal attribute. Now Weka was doing the right kind of analysis.
 \subsubsection{K-Nearest Neighbors}
-We started out modifying the number of neighbors used, which resulted in 1 neighbor as being the best setting. When we added distance weighting to the equation we got the same accuracy as with 4 neighbors as with 1. We also increased our ROC Area.  But we lost some at false positives and the f-measure. \\
+We started out modifying the number of neighbors used, which resulted in 1 neighbor as being the best setting. When we added distance weighting to the equation we got the same accuracy for four neighbors as for one. We also increased our ROC Area.  But we lost some at false positives and the f-measure. \\
 
 \begin{center}
 \begin{tabular}{ c | c | c | c | c | c }
@@ -552,10 +559,32 @@ We started out modifying the number of neighbors used, which resulted in 1 neigh
 \captionof{table}{KNN results}
 \end{center}
 
-\paragraph{}After used the Manhattan distance function for the algorithm and it yielded improved results. We could improve our accuracy to 88\% with the settings set to a single neighbor. The other settings just resulted in the same 84\% accuracy as before and additionally classified a big amount of cancer patients as healthy ones. Specifically in one run 8/18 patients with cancer were predicted to have none. When thinking about giving wrong diagnosis to patients it would be better to wrongly diagnose him with cancer, so that it can be double checked. But when you diagnose him to be healthy instead he won't do any follow up checks. So our single neighbor Manhattan distance algorithm was the only one which could reduce the amount of these wrong predictions to 5/18 and also had the best accuracy.
+\paragraph{}Afterwards we used the Manhattan distance function for the algorithm and results were improving. We could improve our accuracy to 88\% with the settings set to a single neighbor. The other settings just resulted in the same 84\% accuracy as before and additionally classified a big amount of cancer patients as healthy ones. Specifically in one run 8/18 patients with cancer were predicted to have none. When thinking about giving wrong diagnosis to patients it would be better to wrongly diagnose him with cancer, so that it can be double checked. But when you diagnose him to be healthy instead he won't do any follow up checks. So our single neighbor Manhattan distance algorithm was the only one which could reduce the amount of these wrong predictions to 5/18 and also had the best accuracy.
 
 \subsubsection{Random Forest}
-TODO\\
+As usual we started out with the default settings for Random Forests in Weka. This meant 100 trees with the number of features per tree set to the integer value of \emph{log2(\#attributes)+1} , which equals 13. We started out modifying the number of trees and features.
+\begin{center}
+\begin{tabular}{ c | c | c | c | c }
+\textbf{\# Trees} & \textbf{\# Features} & \textbf{Accuracy} & \textbf{F-Measure} & \textbf{ROC Area}\\
+\hline
+10 & default & 80\% & 0.783 & 0.892\\
+50 & default & 86\% & 0.850 & 0.951\\
+100 & default & 86\% & 0.850 & 0.957\\
+200 & default & 86\% & 0.850 & 0.964\\
+50 & 200 & 94\% & 0.969 & 0.986\\
+\textbf{100} & \textbf{200} & \textbf{98\%} & \textbf{0.980} & \textbf{0.993}\\
+200 & 200 & 98\% & 0.980 & 0.988\\
+300 & 200 & 96\% & 0.960 & 0.986\\
+100 & 300 & 94\% & 0.940 & 0.991\\
+100 & 400 & 94\% & 0.939 & 0.990\\
+50 & 1000 & 98\% & 0.980 & 0.988\\
+
+\end{tabular}
+\captionof{table}{Results with different number of trees and features}
+\end{center}
+
+While experimenting with number of features and trees we found that the best combination would be using 200 features an 100 trees as this would result in an 98\% accuracy with only one misclassification. Also it results in the best ROC and F measure values. We also experimented with the tree depth, but this had no impact on our results with this data set.
+
 \subsubsection{Decision Tree - 48J}
 TODO\\
 \subsubsection{Bayes Network}
