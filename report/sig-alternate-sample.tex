@@ -121,28 +121,6 @@
 % e-mail address with \email.
 %
 % 1st. author
-<<<<<<< HEAD
-\alignauthor
-Lukas Stanek \\
-       \affaddr{Technical University of Vienna}\\
-       \affaddr{Karlsplatz 13}\\
-       \affaddr{1040, Vienna}\\
-       \email{----}
-% 2nd. author
-Thomas Appler \\
-       \affaddr{Technical University of Vienna}\\
-       \affaddr{Karlsplatz 13}\\
-       \affaddr{1040, Vienna}\\
-       \email{----}
-% 3rd. author
-\alignauthor
-Marten Sigwart \\
-       \affaddr{Technical University of Vienna}\\
-       \affaddr{Karlsplatz 13}\\
-       \affaddr{1040, Vienna}\\
-       \email{e1638152@student.tuwien.ac.at}
-}
-=======
 %\alignauthor
 %Lukas Stanek \\
 %       \affaddr{Technical University of Vienna}\\
@@ -163,16 +141,13 @@ Marten Sigwart \\
 %       \affaddr{1040, Vienna}\\
 %       \email{e1638152@student.tuwien.ac.at}
 %}
->>>>>>> 37bc09884b6aca09f5cc168c6dd9b0f526633d62
 % There's nothing stop
 % Just remember to make sure that the TOTAL number of authors
 % is the number that will appear on the first page PLUS the
 % number that will appear in the \additionalauthors section.
 
 \maketitle
-<<<<<<< HEAD
 
-=======
 \begin{center}
 \begin{tabular}{l| c r}
 Group & Lukas Stanek & 1027203 \\ % Partner names
@@ -180,7 +155,6 @@ Group & Lukas Stanek & 1027203 \\ % Partner names
 & Marten Sigwart & 1638152 \\
 \end{tabular}
 \end{center}
->>>>>>> 37bc09884b6aca09f5cc168c6dd9b0f526633d62
 
 \section{Introduction}
 Our task was to apply 4 different classification algorithms to 4 different data sets. Hereby, we had to experiment with different parameter settings of the classification algorithm, evaluate the performance by choosing appropriate performance measures and compare results among classifiers and data sets. We also had to perform some pre-processing steps on the data prior to applying the classifiers and study the impact of those pre-processing methods.
@@ -300,14 +274,8 @@ Results for \emph{\#Features: 3}:\\
 \end{tabular}
 
 \subsubsection{Modifying tree depth}
-<<<<<<< HEAD
-=======
 Through modifying the maxial depth a tree is allowed to have we also tried to improve the results of our predictions.We observed that when reducing the depth drastically to something below 10, the prediction rate drops dramatically. 
->>>>>>> 37bc09884b6aca09f5cc168c6dd9b0f526633d62
 
-
-<<<<<<< HEAD
-=======
 \begin{tabular}{c | c }
 \textbf{Max depth} & \textbf{Accuracy}\\
 3 & 56.49\%\\
@@ -331,16 +299,9 @@ But when raising the depth to 20 - 30 the rates start to normalize again also cl
 
 \subsubsection{Best combination}
 The best combination of settings we found was a Tree depth of 28 and the number of features set to 3. The result was a accuracy of \textbf{96.79\%}.
->>>>>>> 37bc09884b6aca09f5cc168c6dd9b0f526633d62
 \subsection{Decision Tree - 48J}
 TODO\\
 \subsection{Bayes Network}
-<<<<<<< HEAD
-TODO\\
-\subsection{Conclusion}
-TODO\\
-
-=======
 When using da Bayes Network implementation in Weka we can adjust 2 settings, the \emph{estimator} and the \emph{searchAlgorithm}. With the default settings, which use the K2 search algorithm, the result is an accuracy of \emph{74.31\%}. We were able to improve the prediction by increasing the size of parents every network node is allowed to have.
 
 \begin{center}
@@ -419,7 +380,7 @@ Interestingly \emph{Q} is often mistaken for \emph{O}, \emph{O} is much less oft
 
 \subsubsection{Best Alghorithm}
 The best algorithm to use for this dataset seems to be a random forest with a tree depth of 28, 3 features per tree and a total amount of 300 trees. It results in a total amount of 96.78\% of instances classified correctly and a ROC Area of 1. The KNN algorithm is also performing well, with the best value at 96.115\% accuracy. Compared to ther better ones, 48J and the Bayes Network are not perfoming that well with peak values at around 87\% accuracy. 
->>>>>>> 37bc09884b6aca09f5cc168c6dd9b0f526633d62
+
 
 % Section Data Set 2
 \section{Data Set 2: Internet Advertisements}
@@ -432,20 +393,14 @@ The data set contains a total of 3279 instances, 2821 of which are non-advertise
 The data set, was contained in two files, one with file ending .name containing all the names of attributes, the other one with ending .data containing the data in a comma-separated format. As Weka prefers data in the ARFF format, we had to do some transformations on the data set prior to loading it into Weka. This was done by first adding the attribute names as header row into the .data file, and saving that file as a CSV file. This file could then be converted by Weka's CSV converter to get the desired ARFF format.
 
 \subsection{K-Nearest Neighbours}
-As first classification algorithm we used K-Nearest Neighbors. The parameters we experimented with were:
-
-\begin{itemize}
-\item The number of neighbors.
-\item The distance weighting.
-\item The distance function.
-\item The search algorithm.
-\end{itemize}
+As first classification algorithm we used K-Nearest Neighbors. The parameters we experimented with were the number of neighbors and the distance weighting.
 
 We did not use any missing value replacement strategy for this classifier, as the distance function used by K-NN can handle missing values. 
 
 \textbf{Number of Neighbors:}
 First, we experimented with the number of neighbors used by the classification algorithm. We did experiments with 1,2,3,4,5,6,8,10,20,50 and 100 neighbors.
 
+\begin{center}
 \begin{tabular}{ c | c | c | c | c | c}
 \textbf{\# of Neighbors} & \textbf{\% Correctly Classified} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad} & \textbf{F-Measure} & \textbf{ROC Area}\\
 1   & 96.25\% & 0.854 & 0.98  & 0.966 & 0.943\\
@@ -460,6 +415,7 @@ First, we experimented with the number of neighbors used by the classification a
 50  & 88.9 \% & 0.211 & 0.999 & 0.857 & 0.957\\
 100 & 88.2 \% & 0.161 & 0.999 & 0.843 & 0.959\\
 \end{tabular}
+\end{center}
 
 Generally, we can observe that the classification task using K-NN rightly classifies the major part of instances. Depending on the number of neighbors up to almost 97\% of instances is classified correctly. The best results seem to emerge when the number of neighbors is fairly low, starting from 1 neighbor we see a slight increase in rightly classified instances up until 3 neighbors. After that the percentage of rightly classified instances starts to decrease again. Looking at the F-Measure our assumption that we find the best classification results by using around 3-4 neighbors is further strengthened as we see F-Measure values of 0.966 for each case. The ROC curve however tells a slightly different story. Here we can we the highest values for 8-20 neighbors, but the overall the values lie in a range between 0.943 and 0.967 and are therefore quite small.
 
@@ -470,6 +426,7 @@ For 2 - 4 neighbors we generally got very good classification results, which is 
 \textbf{Distance Weighting:}
 Next, we experimented with different distance weighting settings. In Weka one can choose between no distance weighting, 1/distance weighting, and 1-distance weighting. Like we discussed in the section before, 2-4 neighbors generally showed "the best" results in the classification, which is why we did the following experiments all using 2-4 neighbors as well as 10 and 100 neighbors just for comparison. Below are the results of the classification task:
 
+\begin{center}
 \begin{tabular}{c | c | c | c | c | c | c}
 \textbf{Distance Weighting} & \textbf{\# of Neighbors} & \textbf{\% Correctly Classified} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad} & \textbf{F-Measure} & \textbf{ROC Area}\\
 No distance & 2   & 95.58\% & 0.871 & 0.97  & 0.956 & 0.953\\
@@ -487,6 +444,8 @@ No distance & 10  & 95.27\% & 0.678 & 0.998 & 0.949 & 0.966\\
 No distance & 100 & 88.2 \% & 0.161 & 0.999 & 0.843 & 0.959\\
 1/distance  & 100 & 90.18\% & 0.305 & 0.999 & 0.879 & 0.972\\
 1-distance  & 100 & 88.2 \% & 0.161 & 0.999 & 0.843 & 0.963\\
+\end{tabular}
+\end{center}
 
 For just 2 neighbors we can see a slight increase in correctly classified instances, also the F-Measure and ROC Area seem to hint at an improved classifier. However, for 3 and 4 neighbors all classifiers seem to show very similar results, so if the distance weighting has an impact, it is now so low that it is basically negligible. We observe the same picture while looking at the results for 10 or 100 neighbors. In general, the F-Measure and ROC Area show very similar results. Only the inverse distance weighting seems to slightly improve the classification on all experiments, which might indicate a more robust method for classification. 
 
@@ -501,6 +460,7 @@ The second classification algorithm we applied was Random Forest. The parameters
 \textbf{Number of Trees:}
 First, we experimented with the number of trees created by the classification algorithm. We did experiments with 2,3,4,5,6,8,10,20,50,100, and 200 trees. We used a bag size of 10 percent.
 
+\begin{center}
 \begin{tabular}{ c | c | c | c | c | c}
 \textbf{\# of Trees} & \textbf{\% Correctly Classified} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad} & \textbf{F-Measure} & \textbf{ROC Area}\\
 2   & 93.69\% & 0.743 & 0.968  & 0.936 & 0.885\\
@@ -515,6 +475,7 @@ First, we experimented with the number of trees created by the classification al
 100 & 95.52\% & 0.691 & 0.998 & 0.952 & 0.984\\
 200 & 95.6 \% & 0.697 & 0.998 & 0.953 & 0.985\\
 \end{tabular}
+\end{center}
 
 Looking at the results the first thing that catches the eye is that Random Forest classification seems to perform slightly worse than K-NN. For example using 3 trees it classifies 94.75\% of instances correctly, whereas K-NN with 3 neighbors classifies 96.74\% of instances correctly. Even when increasing the number of trees, the overall classification percentage does not seem to get beyond 96\%. As the we increase the number of trees the overall improvement of the classifier seems to decrease, thus stagnating at a certain point. The general performance measures like F-Measure and ROC-Area also show high values, which leads to the assumption that the classifier is robust and does perform quite well. Interestingly, these measures even seem to top the same measures of K-NN with a big enough number of trees, which could mean that Random Forest is a more stable and robust classifier than K-NN and could perform better on different data sets of the same structure.
 
@@ -527,22 +488,72 @@ What we observed is that surprisingly the numbers of features used by the classi
 Increasing the bag size obviously improves the classification results, as more instances are used to build the model. Then the model is tested with data from which the model is built and therefore good classification results occur.
 
 \subsection{Decision Tree - 48J}
-TODO\\
-\subsection{Bayes Network}
-TODO\\
-\subsection{Conclusion}
-TODO\\
+The third algorithm we used was Decision Tree. We experimented with parameters minNumObj, unpruned, confidenceFactor. In the default configuration the tree has at least 2 instances for every leaf (minNumObj), uses confidence factor of 0.25, and is pruned.
 
+The default configuration returns following results:
+
+\begin{center}
+\begin{tabular}{c | c | c | c | c}
+\textbf{\% Correctly Classified} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad} & \textbf{F-Measure} & \textbf{ROC Area}\\
+96.89\% & 0.83 & 0.991  & 0.968 & 0.919\\
+\end{tabular}
+\end{center}
+
+This is the best result of correctly classified instances we have seen so far on this data set.
+
+\textbf{minNumObj:}
+MinNumObj determines the minimum number of instances per leaf of the decision tree. We tried out values 2, 5, 10 and 20.
+
+\begin{center}
+\begin{tabular}{ c | c | c | c | c | c}
+\textbf{Min. \# Obj} & \textbf{\% Correctly Classified} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad} & \textbf{F-Measure} & \textbf{ROC Area}\\
+2  & 96.89\% & 0.83  & 0.991 & 0.968 & 0.919\\
+5  & 96.58\% & 0.817 & 0.99  & 0.965 & 0.924\\
+10 & 96.65\% & 0.826 & 0.989 & 0.966 & 0.923\\
+20 & 95.73\% & 0.773 & 0.987 & 0.956 & 0.885\\
+\end{tabular}
+\end{center}
+
+We can see that increasing the number of minimum instances per leaf, seems to worsen the performance of the classifier. We assume this is because increasing the number introduces further constraints on the final decision tree, which might be forced into forms that are not that suitable for the given data. In this example though it is not of great impact.
+
+\textbf{Unpruned:}
+The experiment with an unpruned tree yielded following results:
+
+\begin{center}
+\begin{tabular}{c | c | c | c | c}
+\textbf{\% Correctly Classified} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad} & \textbf{F-Measure} & \textbf{ROC Area}\\
+97.1\% & 0.85 & 0.991  & 0.970 & 0.942\\
+\end{tabular}
+\end{center}
+
+We can see that not pruning the tree seems to imporve the results of the classifier. This is the highest percentage of correctly classified instances we received so far for this data set.
+
+\textbf{Confidence Factor:}
+Lastly we experimented with the confidence factor. The confidence factor determines how strongly the decision tree is pruned. Default value is 0.25. The results we got all were quite high with respect to the other classifiers, but none of them were as high as the results we got without using any pruning. 
+
+\subsection{Bayes Network}
+Lastly, we ran a Bayes Network classifier over the data. Here we experimented with the estimator and the search algorithm.
+
+In Weka one can choose between following four estimators: BayesNetEstimator, SimpleEstimator.
+In Weka following search algorithms are available: K2, Hill Climber, Genetic Search, LAGDHillClimber, Simulated Annealing, Repeated Hill Climber, Tabu Search, and TAN.
+
+Unfortunately all search algorithms but K2 took too much time to build the classifier model, and were just too much for our machines to handle, which is why we only have results for K2. This is caused by the complexity of the searching algorithm as well as the data set itself, as over 1000 attributes need to be taken into consideration. Below you see the results for both estimators using search algorithm K2.
+
+\begin{center}
+\begin{tabular}{ c | c | c | c | c | c}
+\textbf{Estimater} & \textbf{\% Correctly Classified} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad} & \textbf{F-Measure} & \textbf{ROC Area}\\
+Simple   & 96.58\% & 0.778 & 0.996  & 0.964 & 0.967\\
+BayesNet & 96.52\% & 0.773 & 0.996 & 0.964 & 0.967\\
+\end{tabular}
+\end{center}
+
+We can see that both estimators returns very similar results. In comparison to the classifiers we looked at before, K-NN and Random Forest, the Bayes Network Classifier performs strong, but is not extraordinary better than the other two. 
+
+\subsection{Conclusion}
+In conclusion we can say that each of classifiers did a really good job classifying the given data set. The reason for this might be that the data's nature is cut out for classifying, in the sense that there exist strong differences between instances of the different classes. All classifiers with reasonable parameters set, returned values of correctly classified instances not lower than 95\%. The best classifier out the four would probably be Decision Tree J48 as it was the only one reaching a classification percentage of over 97\%. An argument against it might be the time it took to build the model. Every time it took around 20 seconds to build the model. In comparison K-NN or Random Forest took much less time to build the model (way under 10 seconds) and still returned fairly good results. Further it must be said that the choice of the optimal classifier not only depends on the data set itself but also on the task the data scientist is trying to accomplish, which might influence the choice of parameter settings to a great deal.   
 
 % Section Data Set 3
 \section{Data Set 3: Leukemia}
-<<<<<<< HEAD
-TODO\\
-\subsubsection{Preprocessing}
-TODO what preprocessing was done\\
-\subsubsection{K-Nearest Neighbours}
-TODO\\
-=======
 With only 50 instances the leukemia data set has a very low amount of instances but in return has 7130 features which is a really high amount. These 7130 features shall be used to determine whether the given patient has cancer or not.  \\
 \subsubsection{Preprocessing}
 As the data set was given in the CSV format and the class as a binary 0 or 1, Weka interpreted the class as numeric and was set to do regression analysis. Via the preprocessing step \emph{NumericToNominal} we converted it to a nominal attribute. Now Weka was doing the right kind of analysis.
@@ -563,7 +574,7 @@ We started out modifying the number of neighbors used, which resulted in 1 neigh
 
 \paragraph{}Afterwards we used the Manhattan distance function for the algorithm and results were improving. We could improve our accuracy to 88\% with the settings set to a single neighbor. The other settings just resulted in the same 84\% accuracy as before and additionally classified a big amount of cancer patients as healthy ones. Specifically in one run 8/18 patients with cancer were predicted to have none. When thinking about giving wrong diagnosis to patients it would be better to wrongly diagnose him with cancer, so that it can be double checked. But when you diagnose him to be healthy instead he won't do any follow up checks. So our single neighbor Manhattan distance algorithm was the only one which could reduce the amount of these wrong predictions to 5/18 and also had the best accuracy.
 
->>>>>>> 37bc09884b6aca09f5cc168c6dd9b0f526633d62
+
 \subsubsection{Random Forest}
 As usual we started out with the default settings for Random Forests in Weka. This meant 100 trees with the number of features per tree set to the integer value of \emph{log2(\#attributes)+1} , which equals 13. We started out modifying the number of trees and features.
 \begin{center}
@@ -625,22 +636,6 @@ It seems, that the best algorithms to use for this data set would be a random fo
 
 % Section Data Set 4
 \section{Data Set 4: Congressional Voting}
-<<<<<<< HEAD
-TODO\\
-\subsubsection{Preprocessing}
-TODO what preprocessing was done\\
-\subsubsection{K-Nearest Neighbours}
-TODO\\
-\subsubsection{Random Forest}
-TODO\\
-\subsubsection{Decision Tree - 48J}
-TODO\\
-\subsubsection{Bayes Network}
-TODO\\
-\subsubsection{Conclusion}
-TODO\\
-=======
-
 This data set contains 16 votes on different topics (like immigration, education spending) for each of the US House of representatives Congressmen. Those 16 votes were identified by the CQA as the 16 key votes. The CQA lists nine different types of votes, which are simplified here to yea (voted for, paired for, announced for), nay (voted against, paired against, announced against) and unknown (voted present, voted present to avoid conflict of interest, no vote or unknown position). The objective here is now to predict, whether a person is republican or democrat. 
 So in total, the data set is quite small and contains 18 attributes (id, class and 16 topics) and 218 instances. 
 
@@ -794,10 +789,6 @@ We also tried out other estimator functions, but it turned out that except the �
 In general, all classifiers worked relatively well on this data set and had a prediction rate over 90\%, most of them even over 95\%. It seems, that except of some outliers, the data of the set is well distributed. A sign for this for example is the outcome of the “kNN” tests. There we have seen that almost 92\% of all instances have a closest neighbour with the same class. And also with a greater value of “k”, the results do not change dramatically. Also the difference between a unpruned tree and a pruned tree is not that big, which means that even the unpruned tree gives us a good generalisation of the data. 
  
  
- 
-
->>>>>>> 37bc09884b6aca09f5cc168c6dd9b0f526633d62
-
 
 \section{Conclusion}
 
