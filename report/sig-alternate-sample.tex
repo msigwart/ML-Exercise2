@@ -133,7 +133,7 @@
 %       \affaddr{Technical University of Vienna}\\
 %       \affaddr{Karlsplatz 13}\\
 %       \affaddr{1040, Vienna}\\
-%       \email{----}
+%       \email{e1025658@student.tuwien.ac.at}
 %% 3rd. author
 %\alignauthor
 %Marten Sigwart \\
@@ -151,7 +151,7 @@
 \begin{center}
 \begin{tabular}{l| c r}
 Group & Lukas Stanek & 1027203 \\ % Partner names
-& Thomas Appler \\
+& Thomas Appler & 1025658 \\
 & Marten Sigwart & 1638152 \\
 \end{tabular}
 \end{center}
@@ -586,7 +586,20 @@ As usual we started out with the default settings for Random Forests in Weka. Th
 While experimenting with number of features and trees we found that the best combination would be using 200 features an 100 trees as this would result in an 98\% accuracy with only one misclassification. Also it results in the best ROC and F measure values. We also experimented with the tree depth, but this had no impact on our results with this data set.
 
 \subsubsection{Decision Tree - 48J}
-TODO\\
+
+The most interesting observation here is that although the number of attributes is very high, the classifier is building a very small decision tree. In most cases a tree with just two or three leaves is built. This means that there is at least one attribute, which has a high correlation with the class and separates the data well. And in fact, with the default settings, the classifier is building a tree with three leaves and a prediction rate of 82\%, containing the attributes “U46499_at” and “U06233_at”. After setting the minimum number of objects per leave to 7, a two-leaved tree with an even better prediction rate was built (86\%), and this just with the attribute “U46499_at”. And after setting the minimum number of objects per leaf to 20, we got an even better precision rate of 92\%. This time, the tree also just contained one attribute: “M23197_at”. Interesting here is also, that the TP of the class leukemia quals 1 rate is 1. This means, that all cases with leukemia were predicted right, but also with some wrong false positives. This means, that this two attributes “M23197_at” and “U46499_at” are highly correlated with the class attribute and separate the data well. 
+Changing other parameters than the number of objects per leaf do not have an impact on the result. The tree is always build the same way. 
+
+ \begin{center}
+\begin{tabular}{ c | c | c | c }
+\textbf{\% Accuracy} & \textbf{F-Measure} & \textbf{ROC area} & \textbf{attributes used} \textbf{leaves of tree}  \\
+82 & 0.821 & 0.811 & U46499_at, U06233_at & 3 \\
+86 & 0.862 & 0.852 & U46499_at & 2 \\
+92 & 0.921 & 0.913 & M23197_at & 2 \\
+\end{tabular}
+\captionof{table}{Results for default settings and different \# of trees}
+\end{center}
+
 \subsubsection{Bayes Network}
 TODO\\
 \subsubsection{Conclusion}
@@ -594,7 +607,7 @@ TODO\\
 
 
 % Section Data Set 4
-\section{Data Set 1: Congressional Voting}
+\section{Data Set 4: Congressional Voting}
 
 This data set contains 16 votes on different topics (like immigration, education spending) for each of the US House of representatives Congressmen. Those 16 votes were identified by the CQA as the 16 key votes. The CQA lists nine different types of votes, which are simplified here to yea (voted for, paired for, announced for), nay (voted against, paired against, announced against) and unknown (voted present, voted present to avoid conflict of interest, no vote or unknown position). The objective here is now to predict, whether a person is republican or democrat. 
 So in total, the data set is quite small and contains 18 attributes (id, class and 16 topics) and 218 instances. 
@@ -716,7 +729,7 @@ yes & 0.70 & 95.4128 & 0.954 & 0.969 \\
 
 \subsubsection{Other parameters}
  
-Changing other parameters like “collapseTree”, “useLaplace” or “numFolds” had no impact on the results in this case. The only other parameter which made a noticeable difference was minNumObj. If this parameter is not set to 2 or 3, the results get worse.
+Changing other parameters like “collapseTree”, “useLaplace” or “numFolds” had no impact on the results in this case. The only other parameter which made a noticeable difference was minNumObj. If this parameter is not set to 2 or 3, the results get a bit worse. Interesting here is also, that if we set the parameter to 10, a very small tree is built, just with on attribute. But still, the prediction rate decreases just a bit (96.33\%). This means that this attribute “physician-fee-freeze” is a high correlated with the class attribute. 
  
  
 \subsection{Bayesian Network}
