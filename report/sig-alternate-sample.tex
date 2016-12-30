@@ -442,6 +442,8 @@ Q & O \\
 \paragraph{}\emph{J} and \emph{I} are mistaken with each other equally often, it seems to be generally harder to distinguish these two letters. This also seems to be logical as they look very similar and their geometrical properties could be very similar.\\
 Interestingly why \emph{Q} is often mistaken for \emph{O}, \emph{O} is much less mistaken for \emph{Q}. The same can be said about \emph{P} and \emph{F}, where \emph{P} is more often mistaken for \emph{F}, and \emph{H} and \emph{K}.
 
+\subsubsection{Best Alghorithm}
+The best algorithm to use for this dataset seems to be a random forest with a tree depth of 27, 3 features per tree and a total amount of 500 trees. It results in a total amount of 96.775\% of instances classified correctly and a ROC Area of 1. The KNN algorithm is also performing well, with the best value at 96.115\% accuracy. Compared to ther better ones, 48J and the Bayes Network are not perfoming that well with peak values at around 87\% accuracy. 
 
 % Section Data Set 2
 \section{Data Set 2: Internet Advertisements}
@@ -532,11 +534,26 @@ TODO\\
 
 % Section Data Set 3
 \section{Data Set 3: Leukemia}
-TODO\\
+With only 50 instances the leukemia data set has a very low amount of instances but in turn has 7130 features which is a really high amount. These 7130 features shall be used to determine whether the given patient hast cancer or not.  \\
 \subsubsection{Preprocessing}
-TODO what preprocessing was done\\
-\subsubsection{K-Nearest Neighbours}
-TODO\\
+As the data set was given in the CSV format and the class as a binary 0 or 1, Weka interpreted the class as numeric and was set to do regression analysis. Via the preprocessing step \emph{NumericToNominal} we converted it to a nominal attribute. Now Weka was doing the right kind of analysis.
+\subsubsection{K-Nearest Neighbors}
+We started out modifying the number of neighbors used, which resulted in 1 neighbor as being the best setting. When we added distance weighting to the equation we got the same accuracy as with 4 neighbors as with 1. We also increased our ROC Area.  But we lost some at false positives and the f-measure. \\
+
+\begin{center}
+\begin{tabular}{ c | c | c | c | c | c }
+\textbf{\# Neighbors} & \textbf{Weighting} & \textbf{Accuracy} & \textbf{False Pos.} & \textbf{F-Measure} & \textbf{ROC Area}\\
+\hline
+1 & - & 84\% & 0.236 & 0.835 &  0.802\\
+2 & - & 78\% & 0.391 & 0.748 & 0.805\\
+4 & - & 82\% & 0.320 & 0.801 & 0.940\\
+4 & 1/d &  84\% & 0.284 & 0.826 & 0.967\\
+\end{tabular}
+\captionof{table}{KNN results}
+\end{center}
+
+\paragraph{}After used the Manhattan distance function for the algorithm and it yielded improved results. We could improve our accuracy to 88\% with the settings set to a single neighbor. The other settings just resulted in the same 84\% accuracy as before and additionally classified a big amount of cancer patients as healthy ones. Specifically in one run 8/18 patients with cancer were predicted to have none. When thinking about giving wrong diagnosis to patients it would be better to wrongly diagnose him with cancer, so that it can be double checked. But when you diagnose him to be healthy instead he won't do any follow up checks. So our single neighbor Manhattan distance algorithm was the only one which could reduce the amount of these wrong predictions to 5/18 and also had the best accuracy.
+
 \subsubsection{Random Forest}
 TODO\\
 \subsubsection{Decision Tree - 48J}
