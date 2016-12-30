@@ -735,7 +735,7 @@ With default settings we first started to vary the number of trees and it turned
  
 \subsubsection{Number of Attributes}
  
-The default number of attributes until now was 5 (log2(\#attributes)+1). After testing with different numbers, it turned out, that just very low values (<4) and high values (>14) lead to worse results. Others in between lead to almost the same result.
+The default number of attributes until now was 5 (log2(\#attributes)+1). After testing with different numbers, it turned out, that just very low values (\textless4) and high values (\textgreater14) lead to worse results. Others in between lead to almost the same result.
  
 \begin{center}
 \begin{tabular}{ c | c | c | c }
@@ -830,7 +830,7 @@ In general, all classifiers worked relatively well on this data set and had a pr
 
 \subsection{KNN}
 
-Although the NKK classifier is very simple, its results are quite good and in most cases almost as good as other classifiers tested or even better. Most sensitive parameter here is “k”, which is always a small (<10) number in our cases and increasing it leads to worse results. Also setting “k” to one is suboptimal. It just yields a good result, if the data is good distributed and every instance has a closest neighbour with the same class. We also saw, that weighting the the neighbours most of the time improves the result. Only with data set 4 it was not the case. About the different distance functions we can say, that the euclidian and the manhattan distance functions gave us the best results. It depends on the data which function is better, but in general the difference is not that big. We also saw, that the chebyshev distance function always gives us a lot worse result, since it takes the farthest neighbour and calculates the distance. 
+Although the NKK classifier is very simple, its results are quite good and in most cases almost as good as other classifiers tested or even better. Most sensitive parameter here is “k”, which is always a small (\textless10) number in our cases and increasing it leads to worse results. Also setting “k” to one is suboptimal. It just yields a good result, if the data is good distributed and every instance has a closest neighbour with the same class. We also saw, that weighting the the neighbours most of the time improves the result. Only with data set 4 it was not the case. About the different distance functions we can say, that the euclidian and the manhattan distance functions gave us the best results. It depends on the data which function is better, but in general the difference is not that big. We also saw, that the chebyshev distance function always gives us a lot worse result, since it takes the farthest neighbour and calculates the distance. 
 
 
 \subsection{Decision tree}
