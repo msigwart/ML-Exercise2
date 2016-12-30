@@ -456,7 +456,7 @@ We did not use any missing value replacement strategy for this classifier, as th
 \textbf{Number of Neighbors:}
 First, we experimented with the number of neighbors used by the classification algorithm. We did experiments with 1,2,3,4,5,6,8,10,20,50 and 100 neighbors.
 
-
+\begin{center}
 \begin{tabular}{ c | c | c | c | c | c}
 \textbf{\# of Neighbors} & \textbf{\% Correctly Classified} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad} & \textbf{F-Measure} & \textbf{ROC Area}\\
 1   & 96.25\% & 0.854 & 0.98  & 0.966 & 0.943\\
@@ -471,7 +471,7 @@ First, we experimented with the number of neighbors used by the classification a
 50  & 88.9 \% & 0.211 & 0.999 & 0.857 & 0.957\\
 100 & 88.2 \% & 0.161 & 0.999 & 0.843 & 0.959\\
 \end{tabular}
-
+\end{center}
 
 Generally, we can observe that the classification task using K-NN rightly classifies the major part of instances. Depending on the number of neighbors up to almost 97\% of instances is classified correctly. The best results seem to emerge when the number of neighbors is fairly low, starting from 1 neighbor we see a slight increase in rightly classified instances up until 3 neighbors. After that the percentage of rightly classified instances starts to decrease again. Looking at the F-Measure our assumption that we find the best classification results by using around 3-4 neighbors is further strengthened as we see F-Measure values of 0.966 for each case. The ROC curve however tells a slightly different story. Here we can we the highest values for 8-20 neighbors, but the overall the values lie in a range between 0.943 and 0.967 and are therefore quite small.
 
@@ -481,7 +481,7 @@ For 2 - 4 neighbors we generally got very good classification results, which is 
 
 \textbf{Distance Weighting:}
 Next, we experimented with different distance weighting settings. In Weka one can choose between no distance weighting, 1/distance weighting, and 1-distance weighting. Like we discussed in the section before, 2-4 neighbors generally showed "the best" results in the classification, which is why we did the following experiments all using 2-4 neighbors as well as 10 and 100 neighbors just for comparison. Below are the results of the classification task:
-
+\begin{center}
 \begin{tabular}{c | c | c | c | c | c | c}
 \textbf{Distance Weighting} & \textbf{\# of Neighbors} & \textbf{\% Correctly Classified} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad} & \textbf{F-Measure} & \textbf{ROC Area}\\
 No distance & 2   & 95.58\% & 0.871 & 0.97  & 0.956 & 0.953\\
@@ -500,7 +500,7 @@ No distance & 100 & 88.2 \% & 0.161 & 0.999 & 0.843 & 0.959\\
 1/distance  & 100 & 90.18\% & 0.305 & 0.999 & 0.879 & 0.972\\
 1-distance  & 100 & 88.2 \% & 0.161 & 0.999 & 0.843 & 0.963\\
 \end{tabular}
-
+\end{center}
 \paragraph{}For just 2 neighbors we can see a slight increase in correctly classified instances, also the F-Measure and ROC Area seem to hint at an improved classifier. However, for 3 and 4 neighbors all classifiers seem to show very similar results, so if the distance weighting has an impact, it is now so low that it is basically negligible. We observe the same picture while looking at the results for 10 or 100 neighbors. In general, the F-Measure and ROC Area show very similar results. Only the inverse distance weighting seems to slightly improve the classification on all experiments, which might indicate a more robust method for classification. 
 
 So even though the overall performance of the classifier does not seem to be affected that much by the distance weighting we can, however, make out a factor where it does have an impact. In the section above we looked at different numbers of neighbors and we noticed that the true-positive rate for class "ad" seems to decrease when we increase the number of neighbors. We explained this by only a few very similar instances of the class "ad" lying closely together in the data space while there are still quite a few similar instances but of class "non-ad" also in the neighborhood, which leads to some kind of majority count while classifying. The same behavior can also be observed when using distance weighting, though, the decrease of the true-positive rate is not as strong as for no distance weighting. We think this confirms our assumption that the immediate neighbors of an instance of class "ad" are also of class "ad". When using distance weighting within the classifier these instances now get assigned a bigger weight which enhances the probability that the given instance will also be classified as "ad". This reduces the effect of the majority count we observed when not using any distance weighting.
