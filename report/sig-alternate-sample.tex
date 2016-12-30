@@ -566,15 +566,15 @@ While experimenting with number of features and trees we found that the best com
 
 \subsubsection{Decision Tree - 48J}
 
-The most interesting observation here is that although the number of attributes is very high, the classifier is building a very small decision tree. In most cases a tree with just two or three leaves is built. This means that there is at least one attribute, which has a high correlation with the class and separates the data well. And in fact, with the default settings, the classifier is building a tree with three leaves and a prediction rate of 82\%, containing the attributes “U46499_at” and “U06233_at”. After setting the minimum number of objects per leave to 7, a two-leaved tree with an even better prediction rate was built (86\%), and this just with the attribute “U46499_at”. And after setting the minimum number of objects per leaf to 20, we got an even better precision rate of 92\%. This time, the tree also just contained one attribute: “M23197_at”. Interesting here is also, that the TP of the class leukemia quals 1 rate is 1. This means, that all cases with leukemia were predicted right, but also with some wrong false positives. This means, that this two attributes “M23197_at” and “U46499_at” are highly correlated with the class attribute and separate the data well. 
+The most interesting observation here is that although the number of attributes is very high, the classifier is building a very small decision tree. In most cases a tree with just two or three leaves is built. This means that there is at least one attribute, which has a high correlation with the class and separates the data well. And in fact, with the default settings, the classifier is building a tree with three leaves and a prediction rate of 82\%, containing the attributes “U46499\_at” and “U06233\_at”. After setting the minimum number of objects per leave to 7, a two-leaved tree with an even better prediction rate was built (86\%), and this just with the attribute “U46499\_at”. And after setting the minimum number of objects per leaf to 20, we got an even better precision rate of 92\%. This time, the tree also just contained one attribute: “M23197\_at”. Interesting here is also, that the TP of the class leukemia quals 1 rate is 1. This means, that all cases with leukemia were predicted right, but also with some wrong false positives. This means, that this two attributes “M23197\_at” and “U46499\_at” are highly correlated with the class attribute and separate the data well. 
 Changing other parameters than the number of objects per leaf do not have an impact on the result. The tree is always build the same way. 
 
- \begin{center}
-\begin{tabular}{ c | c | c | c }
-\textbf{\% Accuracy} & \textbf{F-Measure} & \textbf{ROC area} & \textbf{attributes used} \textbf{leaves of tree}  \\
-82 & 0.821 & 0.811 & U46499_at, U06233_at & 3 \\
-86 & 0.862 & 0.852 & U46499_at & 2 \\
-92 & 0.921 & 0.913 & M23197_at & 2 \\
+\begin{center}
+\begin{tabular}{ c | c | c | c |  c }
+\textbf{\% Accuracy} & \textbf{F-Measure} & \textbf{ROC area} & \textbf{attributes used} & \textbf{leafs of tree}\\
+82 & 0.821 & 0.811 & U46499\_at, U06233\_at & 3 \\
+86 & 0.862 & 0.852 & U46499\_at & 2 \\
+92 & 0.921 & 0.913 & M23197\_at & 2 \\
 \end{tabular}
 \captionof{table}{Results for default settings and different \# of trees}
 \end{center}
