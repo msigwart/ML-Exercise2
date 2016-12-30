@@ -706,7 +706,7 @@ With default setting we first tested the data set with an 10-fold cross validati
 40 & 89.9083 & 0.900 & 0.981 \\
 100 & 88.0734 & 0.882 & 0.969 \\
 \end{tabular}
-\captionof{table}{Results for default settings and different \# of trees}
+\captionof{table}{Results for different values for k}
 \end{center}
  
 \subsubsection{Distance Functions and Search Methods}
@@ -751,7 +751,7 @@ The default number of attributes until now was 5 (log2(\#attributes)+1). After t
 3 & 96.3303 & 0.963 & 0.989 \\
 2 & 94.9541 & 0.950 & 0.992 \\
 \end{tabular}
-\captionof{table}{Results for default settings and different \# of trees}
+\captionof{table}{Results fpr different numbers of attributes }
 \end{center} 
 
 \subsubsection{Tree depth}
@@ -768,7 +768,7 @@ In the default settings, an unlimited depth of trees is possible. As expected, l
 20 & 97.7064 & 0.977 & 0.989 \\
 100 & 97.7064 & 0.977 & 0.989 \\
 \end{tabular}
-\captionof{table}{Results for default settings and different \# of trees}
+\captionof{table}{Results for different tree depths}
 \end{center}
  
 \subsection{Decision tree}
@@ -787,7 +787,7 @@ yes & 0.50 & 96.789 & 0.968 & 0.952 \\
 yes & 0.55 & 95.4128 & 0.954 & 0.969 \\
 yes & 0.70 & 95.4128 & 0.954 & 0.969 \\
 \end{tabular}
-\captionof{table}{Results for default settings and different \# of trees}
+\captionof{table}{Results for pruning with different confidence factors}
 \end{center} 
 
 \subsubsection{Other parameters}
@@ -810,7 +810,7 @@ LAGDHillClimber & 90.8257 & 0.909 & 0.982 \\
 SimulatedAnnealing & 94.4954  & 0,945 & 0.986 \\
 TAN & 95.4128 & 0.954 & 0.992 \\
 \end{tabular}
-\captionof{table}{Results for default settings and different \# of trees}
+\captionof{table}{Results with different search algorithms}
 \end{center}
 
 
@@ -828,7 +828,22 @@ In general, all classifiers worked relatively well on this data set and had a pr
 
 \section{Conclusion}
 
+\subsection{KNN}
+
+Although the NKK classifier is very simple, its results are quite good and in most cases almost as good as other classifiers tested or even better. Most sensitive parameter here is “k”, which is always a small (<10) number in our cases and increasing it leads to worse results. Also setting “k” to one is suboptimal. It just yields a good result, if the data is good distributed and every instance has a closest neighbour with the same class. We also saw, that weighting the the neighbours most of the time improves the result. Only with data set 4 it was not the case. About the different distance functions we can say, that the euclidian and the manhattan distance functions gave us the best results. It depends on the data which function is better, but in general the difference is not that big. We also saw, that the chebyshev distance function always gives us a lot worse result, since it takes the farthest neighbour and calculates the distance. 
 
 
+\subsection{Decision tree}
+
+Probably the most important step that the classifier does, is to prune the tree. In all cases (except data set 3) pruning the tree improves the results. Without pruning, the tree is often too specialized and does not generalize the data well. For pruning, the j48 implementation uses the parameter confidence factor, which optimal value is dependent on the data. We saw that for letter recognition, increasing the value improves the results, but we also saw, that it can decrease the result for other data (data set 4). 
+
+\subsection{Random forest}
+
+Probably the most important parameter here is the number of trees generated. Generally we can say, that increasing the number of trees is also improving the prediction rate. But at some point, either the improvement of the results stop (data set 4) or the improvements get very small (data set 1). Because of performance issues, therefore for a very big data set, it is sometimes not worth to increase the number of trees for a small improvement.
+Another important parameter here is the number of features used per tree. We saw, that the default value (log2(#attributes)+1) for this generally gives quite good results. We also recognized, that very small values like 1 or high values like the number of attributes of the set is not optimal and lead to worse results. 
+
+\subsection{Bayes Network}
+
+\subsection{Classifier comparison}
 
 \end{document}
