@@ -189,27 +189,6 @@ We chose 4 different classifiers for the task. Hereby, it was important that at 
 \end{itemize}
 
 
-\subsubsection{Algorithm 1: K-Nearest Neighbors}
-KNN itself doesn't deal with missing values, it's the distance 
-function. E.g., in case of euclidean distance, the following applies 
-to missing values while computing the distance of the same attribute 
-between two weka.core.Instance objects: 
-- attributes in both Instance objects have missing value 
-  => 0 
-- only one value is missing 
-  ~ nominal attribute 
-    => 1 
-  ~ numeric attribute 
-    => 1 in case of normalization, maxRange-minRange for that 
-attribute otherwise 
-TODO\\
-\subsubsection{Random Forest: Random Forrest}
-TODO\\
-\subsubsection{Decision Tree - 48J: Decision Tree}
-TODO\\
-\subsubsection{Bayes Network: Bayes??}
-TODO\\
-
 \subsection{Performance Measures}
 TODO\\
 
@@ -588,9 +567,23 @@ While experimenting with number of features and trees we found that the best com
 \subsubsection{Decision Tree - 48J}
 TODO\\
 \subsubsection{Bayes Network}
-TODO\\
+We started out with the default settings of a Bayes Net and it then changed the search algorithms. We changed the number of parents each node is allowed to have in order to improve the results, although the results were already at 98\%. Creating the nets with a higher amount of parents are taking a long time to compute.
+
+\begin{center}
+\begin{tabular}{ c | c | c }
+\textbf{Search algorithm} & \textbf{\# Parents by nodes} & \textbf{Accuracy}\\
+K2 & 1 & 98\% \\
+K2 & 2 & 98\% \\
+Hill Climber& 1 & 98\% \\
+\end{tabular}
+\captionof{table}{BayesNet results}
+\end{center}
+
+The results did not improve on any modification we did on the settings. The were always returning a 98\% accuracy, F-Measure at 0.980 and a ROC Area of 0.972.
+
+
 \subsubsection{Conclusion}
-TODO\\
+It seems, that the best algorithms to use for this data set would be a random forest with 100 trees and 200 features per tree. Also a bayes network could be used as it has similar prediction qualities, although in our experiments the bayes networks would need much more time to compute and would often let Weka run out of memory.
 
 
 % Section Data Set 4
@@ -754,7 +747,7 @@ In general, all classifiers worked relatively well on this data set and had a pr
 
 
 \section{Conclusion}
-TODO\\
+
 
 
 
