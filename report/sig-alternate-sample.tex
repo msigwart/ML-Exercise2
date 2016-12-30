@@ -189,8 +189,6 @@ We chose 4 different classifiers for the task. Hereby, it was important that at 
 \end{itemize}
 
 
-\subsection{Performance Measures}
-TODO\\
 
 % Section Data Set 1
 \section{Data Set 1: Letter Recognition}
@@ -401,19 +399,36 @@ We did not use any missing value replacement strategy for this classifier, as th
 First, we experimented with the number of neighbors used by the classification algorithm. We did experiments with 1,2,3,4,5,6,8,10,20,50 and 100 neighbors.
 
 \begin{center}
-\begin{tabular}{ c | c | c | c | c | c}
-\textbf{\# of Neighbors} & \textbf{\% Correctly Classified} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad} & \textbf{F-Measure} & \textbf{ROC Area}\\
-1   & 96.25\% & 0.854 & 0.98  & 0.966 & 0.943\\
-2   & 95.58\% & 0.871 & 0.97  & 0.956 & 0.953\\
-3   & 96.74\% & 0.804 & 0.994 & 0.966 & 0.957\\
-4   & 96.68\% & 0.819 & 0.991 & 0.966 & 0.959\\
-5   & 96.00\% & 0.747 & 0.995 & 0.958 & 0.965\\
-6   & 96.00\% & 0.763 & 0.994 & 0.96  & 0.965\\
-8   & 95.64\% & 0.710 & 0.996 & 0.953 & 0.967\\
-10  & 95.27\% & 0.678 & 0.998 & 0.949 & 0.966\\
-20  & 92.71\% & 0.486 & 0.999 & 0.916 & 0.967\\
-50  & 88.9 \% & 0.211 & 0.999 & 0.857 & 0.957\\
-100 & 88.2 \% & 0.161 & 0.999 & 0.843 & 0.959\\
+\begin{tabular}{ c | c | c | c}
+\textbf{\# of Neighbors} & \textbf{\% Correctly Classified} & \textbf{F-Measure} & \textbf{ROC Area}\\
+1   & 96.25\% & 0.966 & 0.943\\
+2   & 95.58\% & 0.956 & 0.953\\
+3   & 96.74\% & 0.966 & 0.957\\
+4   & 96.68\% & 0.966 & 0.959\\
+5   & 96.00\% & 0.958 & 0.965\\
+6   & 96.00\% & 0.96  & 0.965\\
+8   & 95.64\% & 0.953 & 0.967\\
+10  & 95.27\% & 0.949 & 0.966\\
+20  & 92.71\% & 0.916 & 0.967\\
+50  & 88.9 \% & 0.857 & 0.957\\
+100 & 88.2 \% & 0.843 & 0.959\\
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{ c | c | c}
+\textbf{\# of Neighbors} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad}\\
+1   & 0.854 & 0.98\\
+2   & 0.871 & 0.97\\
+3   & 0.804 & 0.994\\
+4   & 0.819 & 0.991\\
+5   & 0.747 & 0.995\\
+6   & 0.763 & 0.994\\
+8   & 0.710 & 0.996\\
+10  & 0.678 & 0.998\\
+20  & 0.486 & 0.999\\
+50  & 0.211 & 0.999\\
+100 & 0.161 & 0.999\\
 \end{tabular}
 \end{center}
 
@@ -427,23 +442,44 @@ For 2 - 4 neighbors we generally got very good classification results, which is 
 Next, we experimented with different distance weighting settings. In Weka one can choose between no distance weighting, 1/distance weighting, and 1-distance weighting. Like we discussed in the section before, 2-4 neighbors generally showed "the best" results in the classification, which is why we did the following experiments all using 2-4 neighbors as well as 10 and 100 neighbors just for comparison. Below are the results of the classification task:
 
 \begin{center}
-\begin{tabular}{c | c | c | c | c | c | c}
-\textbf{Distance Weighting} & \textbf{\# of Neighbors} & \textbf{\% Correctly Classified} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad} & \textbf{F-Measure} & \textbf{ROC Area}\\
-No distance & 2   & 95.58\% & 0.871 & 0.97  & 0.956 & 0.953\\
-1/distance  & 2   & 96.43\% & 0.854 & 0.982 & 0.964 & 0.964\\
-1-distance  & 2   & 96.46\% & 0.856 & 0.982 & 0.964 & 0.963\\
-No distance & 3   & 96.74\% & 0.804 & 0.994 & 0.966 & 0.957\\
-1/distance  & 3   & 96.74\% & 0.808 & 0.993 & 0.966 & 0.967\\
-1-distance  & 3   & 96.71\% & 0.800 & 0.994 & 0.966 & 0.964\\
-No distance & 4   & 96.68\% & 0.819 & 0.991 & 0.966 & 0.959\\
-1/distance  & 4   & 96.71\% & 0.804 & 0.994 & 0.966 & 0.97\\
-1-distance  & 4   & 96.71\% & 0.800 & 0.994 & 0.966 & 0.966\\
-No distance & 10  & 95.27\% & 0.678 & 0.998 & 0.949 & 0.966\\
-1/distance  & 10  & 95.73\% & 0.712 & 0.997 & 0.954 & 0.973\\
-1-distance  & 10  & 95.18\% & 0.671 & 0.998 & 0.948 & 0.97\\
-No distance & 100 & 88.2 \% & 0.161 & 0.999 & 0.843 & 0.959\\
-1/distance  & 100 & 90.18\% & 0.305 & 0.999 & 0.879 & 0.972\\
-1-distance  & 100 & 88.2 \% & 0.161 & 0.999 & 0.843 & 0.963\\
+\begin{tabular}{c | c | c | c | c}
+\textbf{Distance Weighting} & \textbf{\# of Neighbors} & \textbf{\% Correctly Classified} & \textbf{F-Measure} & \textbf{ROC Area}\\
+No distance & 2   & 95.58\% & 0.956 & 0.953\\
+1/distance  & 2   & 96.43\% & 0.964 & 0.964\\
+1-distance  & 2   & 96.46\% & 0.964 & 0.963\\
+No distance & 3   & 96.74\% & 0.966 & 0.957\\
+1/distance  & 3   & 96.74\% & 0.966 & 0.967\\
+1-distance  & 3   & 96.71\% & 0.966 & 0.964\\
+No distance & 4   & 96.68\% & 0.966 & 0.959\\
+1/distance  & 4   & 96.71\% & 0.966 & 0.97\\
+1-distance  & 4   & 96.71\% & 0.966 & 0.966\\
+No distance & 10  & 95.27\% & 0.949 & 0.966\\
+1/distance  & 10  & 95.73\% & 0.954 & 0.973\\
+1-distance  & 10  & 95.18\% & 0.948 & 0.97\\
+No distance & 100 & 88.2 \% & 0.843 & 0.959\\
+1/distance  & 100 & 90.18\% & 0.879 & 0.972\\
+1-distance  & 100 & 88.2 \% & 0.843 & 0.963\\
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{c | c | c | c}
+\textbf{Distance Weighting} & \textbf{\# of Neighbors} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad}\\
+No distance & 2   & 0.871 & 0.97\\
+1/distance  & 2   & 0.854 & 0.982\\
+1-distance  & 2   & 0.856 & 0.982\\
+No distance & 3   & 0.804 & 0.994\\
+1/distance  & 3   & 0.808 & 0.993\\
+1-distance  & 3   & 0.800 & 0.994\\
+No distance & 4   & 0.819 & 0.991\\
+1/distance  & 4   & 0.804 & 0.994\\
+1-distance  & 4   & 0.800 & 0.994\\
+No distance & 10  & 0.678 & 0.998\\
+1/distance  & 10  & 0.712 & 0.997\\
+1-distance  & 10  & 0.671 & 0.998\\
+No distance & 100 & 0.161 & 0.999\\
+1/distance  & 100 & 0.305 & 0.999\\
+1-distance  & 100 & 0.161 & 0.999\\
 \end{tabular}
 \end{center}
 
@@ -461,19 +497,19 @@ The second classification algorithm we applied was Random Forest. The parameters
 First, we experimented with the number of trees created by the classification algorithm. We did experiments with 2,3,4,5,6,8,10,20,50,100, and 200 trees. We used a bag size of 10 percent.
 
 \begin{center}
-\begin{tabular}{ c | c | c | c | c | c}
-\textbf{\# of Trees} & \textbf{\% Correctly Classified} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad} & \textbf{F-Measure} & \textbf{ROC Area}\\
-2   & 93.69\% & 0.743 & 0.968  & 0.936 & 0.885\\
-3   & 94.75\% & 0.695 & 0.989 & 0.945 & 0.914\\
-4   & 94.88\% & 0.717 & 0.987 & 0.946 & 0.93\\
-5   & 95.09\% & 0.695 & 0.993 & 0.948 & 0.944\\
-6   & 95.09\% & 0.688 & 0.994 & 0.948 & 0.956\\
-8   & 95.12\% & 0.688 & 0.994 & 0.948 & 0.962\\
-10  & 95.46\% & 0.697 & 0.996 & 0.951 & 0.968\\
-20  & 95.67\% & 0.706 & 0.998 & 0.954 & 0.977\\
-50  & 95.7 \% & 0.704 & 0.998 & 0.954 & 0.982\\
-100 & 95.52\% & 0.691 & 0.998 & 0.952 & 0.984\\
-200 & 95.6 \% & 0.697 & 0.998 & 0.953 & 0.985\\
+\begin{tabular}{ c | c | c | c}
+\textbf{\# of Trees} & \textbf{\% Correctly Classified} & \textbf{F-Measure} & \textbf{ROC Area}\\
+2   & 93.69\% & 0.936 & 0.885\\
+3   & 94.75\% & 0.945 & 0.914\\
+4   & 94.88\% & 0.946 & 0.93\\
+5   & 95.09\% & 0.948 & 0.944\\
+6   & 95.09\% & 0.948 & 0.956\\
+8   & 95.12\% & 0.948 & 0.962\\
+10  & 95.46\% & 0.951 & 0.968\\
+20  & 95.67\% & 0.954 & 0.977\\
+50  & 95.7 \% & 0.954 & 0.982\\
+100 & 95.52\% & 0.952 & 0.984\\
+200 & 95.6 \% & 0.953 & 0.985\\
 \end{tabular}
 \end{center}
 
@@ -505,12 +541,12 @@ This is the best result of correctly classified instances we have seen so far on
 MinNumObj determines the minimum number of instances per leaf of the decision tree. We tried out values 2, 5, 10 and 20.
 
 \begin{center}
-\begin{tabular}{ c | c | c | c | c | c}
-\textbf{Min. \# Obj} & \textbf{\% Correctly Classified} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad} & \textbf{F-Measure} & \textbf{ROC Area}\\
-2  & 96.89\% & 0.83  & 0.991 & 0.968 & 0.919\\
-5  & 96.58\% & 0.817 & 0.99  & 0.965 & 0.924\\
-10 & 96.65\% & 0.826 & 0.989 & 0.966 & 0.923\\
-20 & 95.73\% & 0.773 & 0.987 & 0.956 & 0.885\\
+\begin{tabular}{ c | c | c | c}
+\textbf{Min. \# Obj} & \textbf{\% Correctly Classified} & \textbf{F-Measure} & \textbf{ROC Area}\\
+2  & 96.89\% & 0.968 & 0.919\\
+5  & 96.58\% & 0.965 & 0.924\\
+10 & 96.65\% & 0.966 & 0.923\\
+20 & 95.73\% & 0.956 & 0.885\\
 \end{tabular}
 \end{center}
 
@@ -520,13 +556,13 @@ We can see that increasing the number of minimum instances per leaf, seems to wo
 The experiment with an unpruned tree yielded following results:
 
 \begin{center}
-\begin{tabular}{c | c | c | c | c}
-\textbf{\% Correctly Classified} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad} & \textbf{F-Measure} & \textbf{ROC Area}\\
-97.1\% & 0.85 & 0.991  & 0.970 & 0.942\\
+\begin{tabular}{c | c | c}
+\textbf{\% Correctly Classified} & \textbf{F-Measure} & \textbf{ROC Area}\\
+97.1\% & 0.970 & 0.942\\
 \end{tabular}
 \end{center}
 
-We can see that not pruning the tree seems to imporve the results of the classifier. This is the highest percentage of correctly classified instances we received so far for this data set.
+We can see that not pruning the tree seems to improve the results of the classifier. This is the highest percentage of correctly classified instances we received so far for this data set.
 
 \textbf{Confidence Factor:}
 Lastly we experimented with the confidence factor. The confidence factor determines how strongly the decision tree is pruned. Default value is 0.25. The results we got all were quite high with respect to the other classifiers, but none of them were as high as the results we got without using any pruning. 
@@ -540,10 +576,10 @@ In Weka following search algorithms are available: K2, Hill Climber, Genetic Sea
 Unfortunately all search algorithms but K2 took too much time to build the classifier model, and were just too much for our machines to handle, which is why we only have results for K2. This is caused by the complexity of the searching algorithm as well as the data set itself, as over 1000 attributes need to be taken into consideration. Below you see the results for both estimators using search algorithm K2.
 
 \begin{center}
-\begin{tabular}{ c | c | c | c | c | c}
-\textbf{Estimater} & \textbf{\% Correctly Classified} & \textbf{TP Rate Ad} & \textbf{TP Rate Non-Ad} & \textbf{F-Measure} & \textbf{ROC Area}\\
-Simple   & 96.58\% & 0.778 & 0.996  & 0.964 & 0.967\\
-BayesNet & 96.52\% & 0.773 & 0.996 & 0.964 & 0.967\\
+\begin{tabular}{ c | c | c | c}
+\textbf{Estimater} & \textbf{\% Correctly Classified} & \textbf{F-Measure} & \textbf{ROC Area}\\
+Simple   & 96.58\% & 0.964 & 0.967\\
+BayesNet & 96.52\% & 0.964 & 0.967\\
 \end{tabular}
 \end{center}
 
