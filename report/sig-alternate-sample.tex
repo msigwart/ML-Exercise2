@@ -706,7 +706,7 @@ While experimenting with number of features and trees we found that the best com
 
 \subsubsection{Decision Tree - 48J}
 
-The most interesting observation here is that although the number of attributes is very high, the classifier is building a very small decision tree. In most cases a tree with just two or three leaves is built. This means that there is at least one attribute, which has a high correlation with the class and separates the data well. And in fact, with the default settings, the classifier is building a tree with three leaves and a prediction rate of 82\%, containing the attributes “U46499\_at” and “U06233\_at”. After setting the minimum number of objects per leave to 7, a two-leaved tree with an even better prediction rate was built (86\%), and this just with the attribute “U46499\_at”. And after setting the minimum number of objects per leaf to 20, we got an even better precision rate of 92\%. This time, the tree also just contained one attribute: “M23197\_at”. Interesting here is also, that the TP of the class leukemia quals 1 rate is 1. This means, that all cases with leukemia were predicted right, but also with some wrong false positives. This means, that this two attributes “M23197\_at” and “U46499\_at” are highly correlated with the class attribute and separate the data well. 
+The most interesting observation here is that although the number of attributes is very high, the classifier is building a very small decision tree. In most cases a tree with just two or three leaves is built. This means that there is at least one attribute, which has a high correlation with the class and separates the data well. And in fact, with the default settings, the classifier is building a tree with three leaves and a prediction rate of 82\%, containing the attributes \emph{U46499\_at} and \emph{U06233\_at}. After setting the minimum number of objects per leave to 7, a two-leaved tree with an even better prediction rate was built (86\%), which uses just the \emph{U46499\_at}  attribute. And after setting the minimum number of objects per leaf to 20, we got an even better precision rate of 92\%. This time, the tree also just contained one attribute: \emph{M23197\_at}. Interesting here is also, that the TP of the class leukemia quals 1 rate is 1. This means, that all cases with leukemia were predicted right, but also with some wrong false positives. This means, that this two attributes \emph{M23197\_at} and \emph{U46499\_at} are highly correlated with the class attribute and separate the data well. 
 Changing other parameters than the number of objects per leaf do not have an impact on the result. The tree is always build the same way. 
 
 \begin{center}
@@ -741,12 +741,12 @@ It seems, that the best algorithms to use for this data set would be a random fo
 
 % Section Data Set 4
 \section{Data Set 4: Congressional Voting}
-This data set contains 16 votes on different topics (like immigration, education spending) for each of the US House of representatives Congressmen. Those 16 votes were identified by the CQA as the 16 key votes. The CQA lists nine different types of votes, which are simplified here to yea (voted for, paired for, announced for), nay (voted against, paired against, announced against) and unknown (voted present, voted present to avoid conflict of interest, no vote or unknown position). The objective here is now to predict, whether a person is republican or democrat. 
-So in total, the data set is quite small and contains 18 attributes (id, class and 16 topics) and 218 instances. 
+This data set contains 16 votes on different topics (like immigration, education spending) for each of the US House of representatives Congressmen. Those 16 votes were identified by the CQA as the 16 key votes. The CQA lists nine different types of votes, which are simplified here to \emph{yea} (voted for, paired for, announced for), \emph{nay} (voted against, paired against, announced against) and \emph{unknown} (voted present, voted present to avoid conflict of interest, no vote or unknown position). The objective here is now to predict, whether a person is republican or democrat. 
+So in total, the data set is quite small and contains 18 attributes (\emph{id}, \emph{class} and 16 topics) and 218 instances. 
 
 \subsection{Preprocessing}
  
-First we removed the attribute "id", due to the fact that attributes with unique values do not contain useful information. The second step was to replace all values "unknown" with "?", so that Weka is able to interpret this as missing values, and not as nominal values. To treat the missing values, we used the preprocessing command "ReplaceMissingValues", which replaces every "?" with the mode, that means with the value which appears the most.
+First we removed the attribute \emph{id}, due to the fact that attributes with unique values do not contain useful information. The second step was to replace all values \emph{unknown} with \emph{?}, so that Weka is able to interpret this as missing values, and not as nominal values. To treat the missing values, we used the preprocessing command \emph{ReplaceMissingValues}, which replaces every \emph{?} with the mode, that means with the value which appears the most.
 Another approach can be to first transform all nominal values to numerical zeros and ones and perform then the “ReplaceMissingValues” command. This way, all missing values are not replaced with the mode of the attribute, but with the mean. This means that these values may be between zero and one. But it turned out, that this approach decreases our prediction accuracy in most cases, therefore we will not use this method.
 Another approach could be also to remove all instances with missing values. But in this case it does not make much sense, because the rate of missing values is quite high and the size of the set is very small. Therefore we would eliminate too much instances. 
  
@@ -756,7 +756,7 @@ Another approach could be also to remove all instances with missing values. But 
 
 \subsubsection{parameter k}
  
-With default setting we first tested the data set with an 10-fold cross validation with different values for “k” and it turned out, that three gives us the best accuracy rate of 93.12\%. But also with values 6 and 7 for k the results are quite good. In general it looks like every value for k works quite good for this data set. Although the prediction rate gets worse with high values for k, the decrease is not that big. For example if k is 40, the accuracy decreases just about 3 percent. Also for k equal 1 the result is very good (91.74\%). Considering that that data set is very small, this means that just 3 instances of 218 were misclassified more than with k equals 3. It looks like, that except some outliers, the data is relatively good seperated, because about 92\% of the instances have a nearest neighbour with the same class. An interesting observation is also that the weighted ROC area stays very high, also for high values for k. For example for values 16-40, the weighted ROC area is even higher, that the ROC area with k equals 3. After that we also tried the two different weighting approaches, but they had no impact on the results. All results with different k's are shown the following table.
+With default setting we first tested the data set with an 10-fold cross validation with different values for \emph{k} and it turned out, that three gives us the best accuracy rate of 93.12\%. But also with values 6 and 7 for \emph{k} the results are quite good. In general it looks like every value for \emph{k} works quite good for this data set. Although the prediction rate gets worse with high values for \emph{k}, the decrease is not that big. For example if \emph{k} is 40, the accuracy decreases just about 3 percent. Also for \emph{k} equal 1 the result is very good (91.74\%). Considering that that data set is very small, this means that just 3 instances of 218 were misclassified more than with \emph{k} equals 3. It looks like, that except some outliers, the data is relatively good seperated, because about 92\% of the instances have a nearest neighbour with the same class. An interesting observation is also that the weighted ROC area stays very high, also for high values for \emph{k}. For example for values 16-40, the weighted ROC area is even higher, that the ROC area with \emph{k} equals 3. After that we also tried the two different weighting approaches, but they had no impact on the results. All results with different \emph{k}'s are shown the following table.
  
  \begin{center}
 \begin{tabular}{ c | c | c | c }
@@ -780,7 +780,7 @@ With default setting we first tested the data set with an 10-fold cross validati
  
 \subsubsection{Distance Functions and Search Methods}
  
-Except the “chebyshev” distance function, all distance functions lead to the same result. With the “chebyshev” distance the accuracy got a lot worse and decreased to 72.48\%. When weighting the the neighbours, the “manhattan” distance function decreased the precision rate, but just to 90.82\%. Due to the fact that there are just 218 instances, other search methods that thee default one do not really have a noticeable effect on performance.
+Except the \emph{chebyshev} distance function, all distance functions lead to the same result. With the \emph{chebyshev} distance the accuracy got a lot worse and decreased to 72.48\%. When weighting the the neighbours, the \emph{manhattan} distance function decreased the precision rate, but just to 90.82\%. Due to the fact that there are just 218 instances, other search methods that thee default one do not really have a noticeable effect on performance.
  
 \subsection{Random Forest}
  
@@ -804,7 +804,7 @@ With default settings we first started to vary the number of trees and it turned
  
 \subsubsection{Number of Attributes}
  
-The default number of attributes until now was 5 (log2(\#attributes)+1). After testing with different numbers, it turned out, that just very low values (\textless4) and high values (\textgreater14) lead to worse results. Others in between lead to almost the same result.
+The default number of attributes until now was 5 (\emph{log2(\#attributes)+1}). After testing with different numbers, it turned out, that just very low values (\textless4) and high values (\textgreater14) lead to worse results. Others in between lead to almost the same result.
  
 \begin{center}
 \begin{tabular}{ c | c | c | c }
@@ -825,7 +825,7 @@ The default number of attributes until now was 5 (log2(\#attributes)+1). After t
 
 \subsubsection{Tree depth}
  
-In the default settings, an unlimited depth of trees is possible. As expected, limiting the maximal depth of trees did not improve our results. If maximal tree depth is smaller than 8, the result is worse, if it is 8 or more, the result stays the same.
+In the default settings, an unlimited depth of trees is possible. As expected, limiting the maximal depth of trees did not improve our results. If the maximal tree depth is smaller than 8, the result is worse, if it is 8 or more, the result stays the same.
  
 \begin{center}
 \begin{tabular}{ c | c | c | c }
@@ -844,7 +844,7 @@ In the default settings, an unlimited depth of trees is possible. As expected, l
  
 \subsubsection{Pruning}
  
-First we compared the results of the decision tree with and without pruning. We used the default settings and gained an increase of 1.38\% accuracy with pruning. Next we tested the parameter confidence factor, which is used for pruning. It turned out, that with a confidence factor from 0.25 to 0.5, the result stays the same. But if this factor is less than 0.25 or higher than 0.5 the result gets worse, although the difference is not that big. In general, pruning improves the results, but not significantly. Usually the problem of an unpruned tree is, that it is too specialized. But in our case, this is not really the case. Just 3 instances more are misclassified, than with an pruned tree. 
+First we compared the results of the decision tree with and without pruning. We used the default settings and gained an increase of 1.38\% accuracy with pruning. Next we tested the parameter \emph{confidence factor}, which is used for pruning. It turned out, that with a confidence factor from 0.25 to 0.5, the result stays the same. But if this factor is less than 0.25 or higher than 0.5 the result gets worse, although the difference is not that big. So in our case, pruning improves the results, but not significantly. Usually the problem of an unpruned tree is, that it is too specialized. But in our case, this is not really the case. Just 3 instances more are misclassified, than with an pruned tree. 
  
 \begin{center}
 \begin{tabular}{ c | c | c | c | c }
@@ -861,14 +861,14 @@ yes & 0.70 & 95.4128 & 0.954 & 0.969 \\
 
 \subsubsection{Other parameters}
  
-Changing other parameters like “collapseTree”, “useLaplace” or “numFolds” had no impact on the results in this case. The only other parameter which made a noticeable difference was minNumObj. If this parameter is not set to 2 or 3, the results get a bit worse. Interesting here is also, that if we set the parameter to 10, a very small tree is built, just with on attribute. But still, the prediction rate decreases just a bit (96.33\%). This means that this attribute “physician-fee-freeze” is a high correlated with the class attribute. 
+Changing other parameters like \emph{collapseTree}, \emph{useLaplace} or \emph{numFolds} had no impact on the results in this case. The only other parameter which made a noticeable difference was \emph{minNumObj}. If this parameter is not set to 2 or 3, the results get a bit worse. Interesting here is also, that if we set the parameter to 10, a very small tree with just one attribute(\emph{physician-fee-freeze}) is built. But still, the prediction rate decreases just a bit (96.33\%). This means that this attribute \emph{physician-fee-freeze} is a high correlated with the class attribute. 
  
  
 \subsection{Bayesian Network}
  
 \subsubsection{Search algorithm}
  
-First we started to test the classifier with different search algorithms. With the default search algorithm “k2”, we gained an accuracy of 89.9\% and it turned out, that other methods like hillclimbing, repeated hillclimbing and “tabu search” lead to exactly the same result. The best result is yield with the TAN-search, which increased the accuracy rate to 95.41\%. Also the method simulated annealing leads to good results, but the performance is a lot worse. The runtime increased from about 0.02 seconds to almost two seconds. 
+First we started to test the classifier with different search algorithms. With the default search algorithm \emph{k2}, we gained an accuracy of 89.9\% and it turned out, that other methods like \emph{hillclimbing}, \emph{repeated hillclimbing} and \emph{tabu search} lead to exactly the same result. The best result is yield with the \emph{TAN}-search, which increased the accuracy rate to 95.41\%. Also the method simulated annealing leads to good results, but the performance is a lot worse. The runtime increased from about 0.02 seconds to almost two seconds. 
  
 
 \begin{center}
@@ -887,11 +887,11 @@ TAN & 95.4128 & 0.954 & 0.992 \\
  
 \subsubsection{Other parameters}
 
-We also tried out other estimator functions, but it turned out that except the “MultiNominalBMAEstimator” function all lead to the same result. “MultiNominalBMAEstimator” just decreases the prediction rate dramatically, which is obvious because the set contains binary nominal data, and not “multinominal” data. After that we also tested the “useADTree” parameter, but it also had no impact on the result. 
+We also tried out other estimator functions, but it turned out that except the \emph{MultiNominalBMAEstimator} function all lead to the same result. \emph{MultiNominalBMAEstimator} just decreases the prediction rate dramatically, which is obvious because the set contains binary nominal data, and not \emph{multinominal} data. After that we also tested the \emph{useADTree} parameter, but it also had no impact on the result. 
 
 \subsection{Conclusion}
 
-In general, all classifiers worked relatively well on this data set and had a prediction rate over 90\%, most of them even over 95\%. It seems, that except of some outliers, the data of the set is well distributed. A sign for this for example is the outcome of the “kNN” tests. There we have seen that almost 92\% of all instances have a closest neighbour with the same class. And also with a greater value of “k”, the results do not change dramatically. Also the difference between a unpruned tree and a pruned tree is not that big, which means that even the unpruned tree gives us a good generalisation of the data. 
+In general, all classifiers worked relatively well on this data set and had a prediction rate over 90\%, most of them even over 95\%. It seems, that except of some outliers, the data of the set is well distributed. We have seen, that for example the attribute \emph{physician-fee-freeze} is high correlated with the class attribute. Another sign for this is the outcome of the \emph{kNN} tests. There we have seen that almost 92\% of all instances have a closest neighbour with the same class. And also with a greater value of \emph{k}, the results do not change dramatically. Also the difference between a unpruned tree and a pruned tree is not that big, which means that even the unpruned tree gives us a good generalisation of the data. 
  
  
 
@@ -899,17 +899,17 @@ In general, all classifiers worked relatively well on this data set and had a pr
 
 \subsection{KNN}
 
-Although the NKK classifier is very simple, its results are quite good and in most cases almost as good as other classifiers tested or even better. Most sensitive parameter here is “k”, which is always a small (\textless10) number in our cases and increasing it leads to worse results. Also setting “k” to one is suboptimal. It just yields a good result, if the data is good distributed and every instance has a closest neighbour with the same class. We also saw, that weighting the the neighbours most of the time improves the result. Only with data set 4 it was not the case. About the different distance functions we can say, that the euclidian and the manhattan distance functions gave us the best results. It depends on the data which function is better, but in general the difference is not that big. We also saw, that the chebyshev distance function always gives us a lot worse result, since it takes the farthest neighbour and calculates the distance. 
+Although the NKK classifier is very simple, its results are quite good and in most cases almost as good as other classifiers tested or even better. Most sensitive parameter here is \emph{k}, which is always a small (\textless10) number in our cases and increasing it leads to worse results. Also setting \emph{k} to one is suboptimal. It just yields a good result, if the data is good distributed and every instance has a closest neighbour with the same class. We also saw, that weighting the the neighbours most of the time improves the result. Only with data set 4 it was not the case. About the different distance functions we can say, that the \emph{euclidian} and the \emph{manhattan} distance functions gave us the best results. It depends on the data which function is better, but in general the difference is not that big. We also saw, that the \emph{chebyshev} distance function always gives us a lot worse result, since it takes the farthest neighbour and calculates the distance. 
 
 
 \subsection{Decision tree}
 
-Probably the most important step that the classifier does, is to prune the tree. In all cases (except data set 3) pruning the tree improves the results. Without pruning, the tree is often too specialized and does not generalize the data well. For pruning, the j48 implementation uses the parameter confidence factor, which optimal value is dependent on the data. We saw that for letter recognition, increasing the value improves the results, but we also saw, that it can decrease the result for other data (data set 4). 
+Probably the most important step that the classifier does, is to prune the tree. In all cases (except data set 3) pruning the tree improves the results. Without pruning, the tree is often too specialized and does not generalize the data well. For pruning, the \emph{j48} implementation uses the parameter \emph{confidence factor}, which optimal value is dependent on the data. We saw that for letter recognition, increasing the value improves the results, but we also saw, that it can decrease the result for other data (data set 4). 
 
 \subsection{Random forest}
 
 Probably the most important parameter here is the number of trees generated. Generally we can say, that increasing the number of trees is also improving the prediction rate. But at some point, either the improvement of the results stop (data set 4) or the improvements get very small (data set 1). Because of performance issues, therefore for a very big data set, it is sometimes not worth to increase the number of trees for a small improvement.
-Another important parameter here is the number of features used per tree. We saw, that the default value (log2(\#attributes)+1) for this generally gives quite good results. We also recognized, that very small values like 1 or high values like the number of attributes of the set is not optimal and lead to worse results. 
+Another important parameter here is the number of features used per tree. We saw, that the default value (\emph{log2(\#attributes)+1}) for this generally gives quite good results. We also recognized, that very small values like 1 or high values like the number of attributes of the set is not optimal and lead to worse results. 
 
 \subsection{Bayes Network}
 
