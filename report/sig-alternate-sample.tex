@@ -315,7 +315,7 @@ The best combination of settings we found was a Tree depth of 28 and the number 
 \subsection{Decision Tree - 48J}
 As for this implementation of the decision tree we also started with the default settings for this data set. The first results were significantly worse compared to the other algorithms. The prediction accuracy was down to 87.92\% and also the ROC Area had dropped to 0.954 (The other algorithms were basically at 0.99 or 1). The tree had 1226 leafs and a size of 2451.
  \subsubsection{Number of objects per leaf}
- At first we tried to modify the minimum number of objects per leaf. With the default being two we tried to set it to one, which increased the number of leafs to 1771 and the size of the tree to 3541. The result was slightly better but it seemed like overfitting. \\
+ At first we tried to modify the minimum number of objects per leaf. With the default being two we tried to set it to one, which increased the number of leafs to 1771 and the size of the tree to 3541. The result was slightly better but it seemed like over-fitting. \\
  Although increasing the number of minimum nodes per tree resulted in worse results.\\
  
  \begin{center}
@@ -333,7 +333,7 @@ As for this implementation of the decision tree we also started with the default
  \end{center}
  
  \subsubsection{Pruning}
- Pruning helps to prevent overfitting a decison tree, so that it is specialized to one dataset and does not generalize well. We adjusted a setting called confidence factor to influence the amount of pruning done during model creation. A higher confidence factor results in less pruning.
+ Pruning helps to prevent over-fitting a decision tree, so that it is specialized to one data set and does not generalize well. We adjusted a setting called confidence factor to influence the amount of pruning done during model creation. A higher confidence factor results in less pruning.
  
  
  \begin{center}
@@ -350,8 +350,8 @@ As for this implementation of the decision tree we also started with the default
  \captionof{table}{Ajusting the confidence factor}
  \end{center}
  
- The accuracy is increasing when pruning is decreased, but this would also increase the chances of the tree being overfitted.\\
- It is also possible to change the pruning mode from C4.5 pruning to reduced-error pruning. It yields slighly worse results than the default pruning method.
+ The accuracy is increasing when pruning is decreased, but this would also increase the chances of the tree being over-fitted.\\
+ It is also possible to change the pruning mode from C4.5 pruning to reduced-error pruning. It yields slightly worse results than the default pruning method.
  
  
 
@@ -419,8 +419,8 @@ When using the Tabu Search algorithm we could also improve our results by increa
 
 \subsection{Conclusion}
 \subsubsection{Letter mix-up}
-When predicting letters there are some which are pretty well distinguishable from one another and some are not. So it happens that its easy to confuse two letters which look similar to each other. This also applys to our machine learning algorithms. Some letters have a worse prediction rate than others. We can tell which characters are often confused by looking at the confusion matrix. It tells us how often a character was classified correctly or if not for which letter it was mistaken. This allows us also to tell whether the confusion is only going one-way. Meaning that one character is often mistaken for another one, but the other mostly classified correctly.\\
-The top candiates for confusion are:\\
+When predicting letters there are some which are pretty well distinguishable from one another and some are not. So it happens that its easy to confuse two letters which look similar to each other. This also applies to our machine learning algorithms. Some letters have a worse prediction rate than others. We can tell which characters are often confused by looking at the confusion matrix. It tells us how often a character was classified correctly or if not for which letter it was mistaken. This allows us also to tell whether the confusion is only going one-way. Meaning that one character is often mistaken for another one, but the other mostly classified correctly.\\
+The top candidates for confusion are:\\
 \begin{center}
 \begin{tabular}{  c |  c  }
 J & I \\
@@ -433,7 +433,7 @@ Q & O \\
 Interestingly \emph{Q} is often mistaken for \emph{O}, \emph{O} is much less often mistaken for \emph{Q}. The same can be said about \emph{P} and \emph{F}, where \emph{P} is more often mistaken for \emph{F}, and \emph{H} and \emph{K}.
 
 \subsubsection{Best Alghorithm}
-The best algorithm to use for this dataset seems to be a random forest with a tree depth of 28, 3 features per tree and a total amount of 300 trees. It results in a total amount of 96.78\% of instances classified correctly and a ROC Area of 1. The KNN algorithm is also performing well, with the best value at 96.115\% accuracy. Compared to ther better ones, 48J and the Bayes Network are not perfoming that well with peak values at around 87\% accuracy. 
+The best algorithm to use for this data set seems to be a random forest with a tree depth of 28, 3 features per tree and a total amount of 300 trees. It results in a total amount of 96.78\% of instances classified correctly and a ROC Area of 1. The KNN algorithm is also performing well, with the best value at 96.115\% accuracy. Compared to the better ones, 48J and the Bayes Network are not performing that well with peak values at around 87\% accuracy. 
 
 
 % Section Data Set 2
@@ -756,7 +756,7 @@ Another approach could be also to remove all instances with missing values. But 
 
 \subsubsection{parameter k}
  
-With default setting we first tested the data set with an 10-fold cross validation with different values for \emph{k} and it turned out, that three gives us the best accuracy rate of 93.12\%. But also with values 6 and 7 for \emph{k} the results are quite good. In general it looks like every value for \emph{k} works quite good for this data set. Although the prediction rate gets worse with high values for \emph{k}, the decrease is not that big. For example if \emph{k} is 40, the accuracy decreases just about 3 percent. Also for \emph{k} equal 1 the result is very good (91.74\%). Considering that that data set is very small, this means that just 3 instances of 218 were misclassified more than with \emph{k} equals 3. It looks like, that except some outliers, the data is relatively good seperated, because about 92\% of the instances have a nearest neighbour with the same class. An interesting observation is also that the weighted ROC area stays very high, also for high values for \emph{k}. For example for values 16-40, the weighted ROC area is even higher, that the ROC area with \emph{k} equals 3. After that we also tried the two different weighting approaches, but they had no impact on the results. All results with different \emph{k}'s are shown the following table.
+With default setting we first tested the data set with an 10-fold cross validation with different values for \emph{k} and it turned out, that three gives us the best accuracy rate of 93.12\%. But also with values 6 and 7 for \emph{k} the results are quite good. In general it looks like every value for \emph{k} works quite good for this data set. Although the prediction rate gets worse with high values for \emph{k}, the decrease is not that big. For example if \emph{k} is 40, the accuracy decreases just about 3 percent. Also for \emph{k} equal 1 the result is very good (91.74\%). Considering that that data set is very small, this means that just 3 instances of 218 were misclassified more than with \emph{k} equals 3. It looks like, that except some outliers, the data is relatively good separated, because about 92\% of the instances have a nearest neighbor with the same class. An interesting observation is also that the weighted ROC area stays very high, also for high values for \emph{k}. For example for values 16-40, the weighted ROC area is even higher, that the ROC area with \emph{k} equals 3. After that we also tried the two different weighting approaches, but they had no impact on the results. All results with different \emph{k}'s are shown the following table.
  
  \begin{center}
 \begin{tabular}{ c | c | c | c }
@@ -780,13 +780,13 @@ With default setting we first tested the data set with an 10-fold cross validati
  
 \subsubsection{Distance Functions and Search Methods}
  
-Except the \emph{chebyshev} distance function, all distance functions lead to the same result. With the \emph{chebyshev} distance the accuracy got a lot worse and decreased to 72.48\%. When weighting the the neighbours, the \emph{manhattan} distance function decreased the precision rate, but just to 90.82\%. Due to the fact that there are just 218 instances, other search methods that thee default one do not really have a noticeable effect on performance.
+Except the \emph{Chebyshev} distance function, all distance functions lead to the same result. With the \emph{Chebyshev} distance the accuracy got a lot worse and decreased to 72.48\%. When weighting the the neighbors, the \emph{Manhattan} distance function decreased the precision rate, but just to 90.82\%. Due to the fact that there are just 218 instances, other search methods that thee default one do not really have a noticeable effect on performance.
  
 \subsection{Random Forest}
  
 \subsubsection{Number of trees}
  
-With default settings we first started to vary the number of trees and it turned out, that 16 gave us the best result of 97.25\% accuracy and the lower the number is, the worse the result. As expected, because of the small data set the ideal number is quit low. But also with a higher number of trees the classifier yielded almost the same resault (96.789\% accuracy). But this difference is not significantly worse, because just one instance more was misclassified. This means that increasing the number of trees improves the result, until a point, where it stays the same.
+With default settings we first started to vary the number of trees and it turned out, that 16 gave us the best result of 97.25\% accuracy and the lower the number is, the worse the result. As expected, because of the small data set the ideal number is quit low. But also with a higher number of trees the classifier yielded almost the same result (96.789\% accuracy). But this difference is not significantly worse, because just one instance more was misclassified. This means that increasing the number of trees improves the result, until a point, where it stays the same.
  
 \begin{center}
 \begin{tabular}{ c | c | c | c }
@@ -891,7 +891,7 @@ We also tried out other estimator functions, but it turned out that except the \
 
 \subsection{Conclusion}
 
-In general, all classifiers worked relatively well on this data set and had a prediction rate over 90\%, most of them even over 95\%. It seems, that except of some outliers, the data of the set is well distributed. We have seen, that for example the attribute \emph{physician-fee-freeze} is high correlated with the class attribute. Another sign for this is the outcome of the \emph{kNN} tests. There we have seen that almost 92\% of all instances have a closest neighbour with the same class. And also with a greater value of \emph{k}, the results do not change dramatically. Also the difference between a unpruned tree and a pruned tree is not that big, which means that even the unpruned tree gives us a good generalisation of the data. 
+In general, all classifiers worked relatively well on this data set and had a prediction rate over 90\%, most of them even over 95\%. It seems, that except of some outliers, the data of the set is well distributed. We have seen, that for example the attribute \emph{physician-fee-freeze} is high correlated with the class attribute. Another sign for this is the outcome of the \emph{kNN} tests. There we have seen that almost 92\% of all instances have a closest neighbor with the same class. And also with a greater value of \emph{k}, the results do not change dramatically. Also the difference between a unpruned tree and a pruned tree is not that big, which means that even the unpruned tree gives us a good generalisation of the data. 
  
  
 
@@ -899,7 +899,7 @@ In general, all classifiers worked relatively well on this data set and had a pr
 
 \subsection{KNN}
 
-Although the NKK classifier is very simple, its results are quite good and in most cases almost as good as other classifiers tested or even better. Most sensitive parameter here is \emph{k}, which is always a small (\textless10) number in our cases and increasing it leads to worse results. Also setting \emph{k} to one is suboptimal. It just yields a good result, if the data is good distributed and every instance has a closest neighbour with the same class. We also saw, that weighting the the neighbours most of the time improves the result. Only with data set 4 it was not the case. About the different distance functions we can say, that the \emph{euclidian} and the \emph{manhattan} distance functions gave us the best results. It depends on the data which function is better, but in general the difference is not that big. We also saw, that the \emph{chebyshev} distance function always gives us a lot worse result, since it takes the farthest neighbour and calculates the distance. 
+Although the NKK classifier is very simple, its results are quite good and in most cases almost as good as other classifiers tested or even better. Most sensitive parameter here is \emph{k}, which is always a small (\textless10) number in our cases and increasing it leads to worse results. Also setting \emph{k} to one is suboptimal. It just yields a good result, if the data is good distributed and every instance has a closest neighbor with the same class. We also saw, that weighting the the neighbors most of the time improves the result. Only with data set 4 it was not the case. About the different distance functions we can say, that the \emph{Euclidian} and the \emph{Manhattan} distance functions gave us the best results. It depends on the data which function is better, but in general the difference is not that big. We also saw, that the \emph{Chebyshev} distance function always gives us a lot worse result, since it takes the farthest neighbour and calculates the distance. 
 
 
 \subsection{Decision tree}
